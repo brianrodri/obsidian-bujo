@@ -4,7 +4,7 @@
 	"version": "0.0.1",
 	"minAppVersion": "0.15.0",
 	"description": "Bullet Journaling for your Obsidian Vault.",
-	"author": "brianrodri",
+	"author": "Brian Rodriguez <brian@brianrodri.com>",
 	"authorUrl": "https://brianrodri.com",
 	"isDesktopOnly": false
 }
