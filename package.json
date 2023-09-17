@@ -14,6 +14,7 @@
 	"author": "Brian Rodriguez <brian@brianrodri.com>",
 	"license": "MIT",
 	"devDependencies": {
+        "@types/luxon": "latest",
 		"@types/node": "latest",
 		"@types/react": "latest",
 		"@types/react-dom": "latest",
@@ -22,6 +23,7 @@
 		"@vitest/coverage-v8": "latest",
 		"builtin-modules": "latest",
 		"esbuild": "latest",
+        "luxon": "latest",
 		"obsidian": "latest",
 		"tslib": "latest",
 		"typescript": "latest",
