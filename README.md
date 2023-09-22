@@ -1,6 +1,6 @@
 # Obsidian Sample Plugin
 
-![CI](https://github.com/brianrodri/obsidian-bujo/actions/workflows/CI.yml/badge.svg)
+[![CI](https://github.com/brianrodri/obsidian-bujo/actions/workflows/CI.yml/badge.svg)](https://github.com/brianrodri/obsidian-bujo/actions/workflows/CI.yml)
 
 This is a sample plugin for Obsidian (https://obsidian.md).
 
