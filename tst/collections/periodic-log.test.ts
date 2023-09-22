@@ -10,41 +10,21 @@ describe("PeriodicLog", () => {
 	};
 
 	describe("Validating input", () => {
-		it.each([null, undefined, ""])(
-			"throws when kind is %j",
-			(kind: "periodic-log") => {
-				expect(() => new PeriodicLog({ ...common, kind })).toThrowError(
-					'kind must be "periodic-log"',
-				);
-			},
-		);
+		it.each([null, undefined, ""])("throws when kind is %j", (kind: "periodic-log") => {
+			expect(() => new PeriodicLog({ ...common, kind })).toThrowError('kind must be "periodic-log"');
+		});
 
-		it.each([null, undefined, ""])(
-			"throws when folder is %j",
-			(folder: string) => {
-				expect(
-					() => new PeriodicLog({ ...common, folder }),
-				).toThrowError("folder is required");
-			},
-		);
+		it.each([null, undefined, ""])("throws when folder is %j", (folder: string) => {
+			expect(() => new PeriodicLog({ ...common, folder })).toThrowError("folder is required");
+		});
 
-		it.each(["1 hour", { hour: 1 }, null, undefined])(
-			"throws when period is %j",
-			(period: string) => {
-				expect(
-					() => new PeriodicLog({ ...common, period }),
-				).toThrowError("period must be valid");
-			},
-		);
+		it.each(["1 hour", { hour: 1 }, null, undefined])("throws when period is %j", (period: string) => {
+			expect(() => new PeriodicLog({ ...common, period })).toThrowError("period must be valid");
+		});
 
-		it.each(["1 hour", { hour: 1 }])(
-			"throws when offset is %j",
-			(offset: string) => {
-				expect(
-					() => new PeriodicLog({ ...common, offset }),
-				).toThrowError("offset must be valid");
-			},
-		);
+		it.each(["1 hour", { hour: 1 }])("throws when offset is %j", (offset: string) => {
+			expect(() => new PeriodicLog({ ...common, offset })).toThrowError("offset must be valid");
+		});
 	});
 
 	describe("Defining periods", () => {
@@ -60,16 +40,12 @@ describe("PeriodicLog", () => {
 
 		it("supports daily intervals", () => {
 			const log = new PeriodicLog({ ...common, period: "P1D" });
-			expect(log.getInterval("2023-09-11")).toEqual(
-				Interval.fromISO("2023-09-11/2023-09-12"),
-			);
+			expect(log.getInterval("2023-09-11")).toEqual(Interval.fromISO("2023-09-11/2023-09-12"));
 		});
 
 		it("supports weekly intervals", () => {
 			const log = new PeriodicLog({ ...common, period: "P1W" });
-			expect(log.getInterval("2023-W37")).toEqual(
-				Interval.fromISO("2023-09-11/2023-09-18"),
-			);
+			expect(log.getInterval("2023-W37")).toEqual(Interval.fromISO("2023-09-11/2023-09-18"));
 		});
 
 		it("supports sprint intervals (2 weeks long, starts on thursday)", () => {
@@ -78,16 +54,12 @@ describe("PeriodicLog", () => {
 				period: "P2W",
 				offset: "P3D",
 			});
-			expect(log.getInterval("2023-W37")).toEqual(
-				Interval.fromISO("2023-09-14/2023-09-28"),
-			);
+			expect(log.getInterval("2023-W37")).toEqual(Interval.fromISO("2023-09-14/2023-09-28"));
 		});
 
 		it("supports monthly intervals", () => {
 			const log = new PeriodicLog({ ...common, period: "P1M" });
-			expect(log.getInterval("2023-09")).toEqual(
-				Interval.fromISO("2023-09-01/2023-10-01"),
-			);
+			expect(log.getInterval("2023-09")).toEqual(Interval.fromISO("2023-09-01/2023-10-01"));
 		});
 	});
 });

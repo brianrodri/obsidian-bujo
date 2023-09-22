@@ -9,6 +9,7 @@
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"test": "vitest",
 		"coverage": "vitest run --coverage",
+		"format": "prettier --write --ignore-unknown .",
 		"prepare": "husky install"
 	},
 	"keywords": [],

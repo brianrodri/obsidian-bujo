@@ -10,41 +10,25 @@ export class PeriodicLog {
 		this.validate(cfg);
 		this.folder = cfg.folder;
 		this.period = Duration.fromISO(cfg.period);
-		this.offset = cfg.offset
-			? Duration.fromISO(cfg.offset)
-			: Duration.fromMillis(0);
+		this.offset = cfg.offset ? Duration.fromISO(cfg.offset) : Duration.fromMillis(0);
 	}
 
 	validate(cfg: PeriodicLogConfig) {
 		if (cfg.kind !== this.kind) {
-			throw new Error(
-				`kind must be "${this.kind}" but got value: ${JSON.stringify(
-					cfg.kind,
-				)}`,
-			);
+			throw new Error(`kind must be "${this.kind}" but got value: ${JSON.stringify(cfg.kind)}`);
 		}
 		if (!cfg.folder) {
-			throw new Error(
-				`folder is required but got value: ${JSON.stringify(
-					cfg.folder,
-				)}`,
-			);
+			throw new Error(`folder is required but got value: ${JSON.stringify(cfg.folder)}`);
 		}
 		const period = Duration.fromISO(cfg.period);
 		if (!period.isValid) {
 			const error = `${period.invalidReason}: ${period.invalidExplanation}`;
-			throw new Error(
-				`period must be valid but got error: ${JSON.stringify(error)}`,
-			);
+			throw new Error(`period must be valid but got error: ${JSON.stringify(error)}`);
 		}
-		const offset = cfg.offset
-			? Duration.fromISO(cfg.offset)
-			: Duration.fromMillis(0);
+		const offset = cfg.offset ? Duration.fromISO(cfg.offset) : Duration.fromMillis(0);
 		if (!offset.isValid) {
 			const error = `${offset.invalidReason}: ${offset.invalidExplanation}`;
-			throw new Error(
-				`offset must be valid but got error: ${JSON.stringify(error)}`,
-			);
+			throw new Error(`offset must be valid but got error: ${JSON.stringify(error)}`);
 		}
 	}
 

@@ -1,13 +1,4 @@
-import {
-	App,
-	Editor,
-	MarkdownView,
-	Modal,
-	Notice,
-	Plugin,
-	PluginSettingTab,
-	Setting,
-} from "obsidian";
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from "obsidian";
 
 // Remember to rename these classes and interfaces!
 
@@ -60,8 +51,7 @@ export default class MyPlugin extends Plugin {
 			name: "Open sample modal (complex)",
 			checkCallback: (checking: boolean) => {
 				// Conditions to check
-				const markdownView =
-					this.app.workspace.getActiveViewOfType(MarkdownView);
+				const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
 				if (markdownView) {
 					// If checking is true, we're simply "checking" if the command can be run.
 					// If checking is false, then we want to actually perform the operation.
@@ -85,19 +75,13 @@ export default class MyPlugin extends Plugin {
 		});
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(
-			window.setInterval(() => console.log("setInterval"), 5 * 60 * 1000),
-		);
+		this.registerInterval(window.setInterval(() => console.log("setInterval"), 5 * 60 * 1000));
 	}
 
 	onunload() {}
 
 	async loadSettings() {
-		this.settings = Object.assign(
-			{},
-			DEFAULT_SETTINGS,
-			await this.loadData(),
-		);
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
 	}
 
 	async saveSettings() {
