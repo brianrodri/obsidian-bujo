@@ -1,10 +1,10 @@
 {
-	"id": "obsidian-bujo",
-	"name": "Obsidian BuJo",
-	"version": "0.0.1",
-	"minAppVersion": "0.15.0",
-	"description": "Bullet Journaling for your Obsidian Vault.",
-	"author": "Brian Rodriguez <brian@brianrodri.com>",
-	"authorUrl": "https://brianrodri.com",
-	"isDesktopOnly": false
+    "id": "obsidian-bujo",
+    "name": "Obsidian BuJo",
+    "version": "0.0.1",
+    "minAppVersion": "0.15.0",
+    "description": "Bullet Journaling for your Obsidian Vault.",
+    "author": "Brian Rodriguez <brian@brianrodri.com>",
+    "authorUrl": "https://brianrodri.com",
+    "isDesktopOnly": false
 }
