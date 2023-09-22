@@ -1,5 +1,7 @@
 # Obsidian Sample Plugin
 
+![CI](https://github.com/brianrodri/obsidian-bujo/actions/workflows/CI.yml/badge.svg)
+
 This is a sample plugin for Obsidian (https://obsidian.md).
 
 This project uses Typescript to provide type checking and documentation.
