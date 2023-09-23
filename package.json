@@ -2,43 +2,44 @@
     "name": "obsidian-bujo",
     "version": "0.0.1",
     "description": "Bullet Journaling for your Obsidian Vault.",
+    "author": "Brian Rodriguez <brian@brianrodri.com>",
+    "license": "MIT",
+    "keywords": [],
     "main": "main.js",
     "scripts": {
         "dev": "node esbuild.config.mjs",
         "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
         "version": "node version-bump.mjs && git add manifest.json versions.json",
-        "test": "vitest",
-        "coverage": "vitest run --coverage",
         "format": "prettier --write --ignore-unknown .",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "test": "jest --coverage"
     },
-    "keywords": [],
-    "author": "Brian Rodriguez <brian@brianrodri.com>",
-    "license": "MIT",
+    "lint-staged": {
+        "**/*": "prettier --write --ignore-unknown"
+    },
+    "dependencies": {
+        "luxon": "latest",
+        "obsidian": "latest",
+        "react": "latest",
+        "react-dom": "latest"
+    },
     "devDependencies": {
+        "@types/jest": "latest",
         "@types/luxon": "latest",
         "@types/node": "latest",
         "@types/react": "latest",
         "@types/react-dom": "latest",
         "@typescript-eslint/eslint-plugin": "latest",
         "@typescript-eslint/parser": "latest",
-        "@vitest/coverage-v8": "latest",
         "builtin-modules": "latest",
         "esbuild": "latest",
         "husky": "latest",
+        "jest": "latest",
         "lint-staged": "latest",
-        "luxon": "latest",
-        "obsidian": "latest",
         "prettier": "latest",
+        "ts-node": "latest",
+        "ts-jest": "latest",
         "tslib": "latest",
-        "typescript": "latest",
-        "vitest": "latest"
-    },
-    "dependencies": {
-        "react": "latest",
-        "react-dom": "latest"
-    },
-    "lint-staged": {
-        "**/*": "prettier --write --ignore-unknown"
+        "typescript": "latest"
     }
 }
