@@ -24,7 +24,7 @@
         "react-dom": "latest"
     },
     "devDependencies": {
-        "@types/jest": "latest",
+        "@jest/globals": "latest",
         "@types/luxon": "latest",
         "@types/node": "latest",
         "@types/react": "latest",
