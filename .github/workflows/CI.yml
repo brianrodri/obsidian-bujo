@@ -12,7 +12,7 @@ jobs:
             - name: Check format
               run: npx prettier . --check
             - name: Run tests
-              run: npm run coverage
+              run: npx vitest --coverage
             - name: Report coverage
               if: always()
               uses: davelosert/vitest-coverage-report-action@v2
