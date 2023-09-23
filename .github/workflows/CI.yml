@@ -1,7 +1,7 @@
 name: CI
 on: push
 jobs:
-    build:
+    CI:
         runs-on: ubuntu-latest
         permissions:
             contents: read
