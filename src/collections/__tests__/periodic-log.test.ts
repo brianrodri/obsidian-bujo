@@ -1,7 +1,5 @@
-/*
 import { Interval } from "luxon";
-import { describe, expect, it } from "vitest";
-import { PeriodicLog } from "src/collections/periodic-log";
+import { PeriodicLog } from "collections/periodic-log";
 
 describe("PeriodicLog", () => {
     const common = {
@@ -64,4 +62,3 @@ describe("PeriodicLog", () => {
         });
     });
 });
-*/
