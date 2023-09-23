@@ -6,26 +6,26 @@ export class PeriodicLog {
     public readonly period: Duration;
     public readonly offset: Duration;
 
-    constructor(cfg: PeriodicLogConfig) {
-        this.validate(cfg);
-        this.folder = cfg.folder;
-        this.period = Duration.fromISO(cfg.period);
-        this.offset = cfg.offset ? Duration.fromISO(cfg.offset) : Duration.fromMillis(0);
+    constructor(config: PeriodicLogConfig) {
+        this.validate(config);
+        this.folder = config.folder;
+        this.period = Duration.fromISO(config.period);
+        this.offset = config.offset ? Duration.fromISO(config.offset) : Duration.fromMillis(0);
     }
 
-    validate(cfg: PeriodicLogConfig) {
-        if (cfg.kind !== this.kind) {
-            throw new Error(`kind must be "${this.kind}" but got value: ${JSON.stringify(cfg.kind)}`);
+    validate(config: PeriodicLogConfig) {
+        if (config.kind !== this.kind) {
+            throw new Error(`kind must be "${this.kind}" but got value: ${JSON.stringify(config.kind)}`);
         }
-        if (!cfg.folder) {
-            throw new Error(`folder is required but got value: ${JSON.stringify(cfg.folder)}`);
+        if (!config.folder) {
+            throw new Error(`folder is required but got value: ${JSON.stringify(config.folder)}`);
         }
-        const period = Duration.fromISO(cfg.period);
+        const period = Duration.fromISO(config.period);
         if (!period.isValid) {
             const error = `${period.invalidReason}: ${period.invalidExplanation}`;
             throw new Error(`period must be valid but got error: ${JSON.stringify(error)}`);
         }
-        const offset = cfg.offset ? Duration.fromISO(cfg.offset) : Duration.fromMillis(0);
+        const offset = config.offset ? Duration.fromISO(config.offset) : Duration.fromMillis(0);
         if (!offset.isValid) {
             const error = `${offset.invalidReason}: ${offset.invalidExplanation}`;
             throw new Error(`offset must be valid but got error: ${JSON.stringify(error)}`);
