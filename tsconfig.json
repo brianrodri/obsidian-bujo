@@ -4,6 +4,7 @@
         "baseUrl": "src",
         "inlineSourceMap": true,
         "inlineSources": true,
+        "noImplicitOverride": true,
         "module": "ESNext",
         "target": "ES6",
         "allowJs": true,
