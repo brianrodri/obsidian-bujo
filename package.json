@@ -23,7 +23,6 @@
     },
     "dependencies": {
         "luxon": "latest",
-        "obsidian": "latest",
         "react": "latest",
         "react-dom": "latest"
     },
@@ -43,9 +42,11 @@
         "jest": "latest",
         "jest-environment-jsdom": "latest",
         "lint-staged": "latest",
+        "obsidian": "latest",
+        "obsidian-dataview": "^0.4.21",
         "prettier": "latest",
-        "ts-node": "latest",
         "ts-jest": "latest",
+        "ts-node": "latest",
         "tslib": "latest",
         "typescript": "latest"
     }
