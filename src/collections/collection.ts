@@ -14,6 +14,9 @@ export interface ICollection {
     /** Returns the title of the given note. */
     getTitle(note: string): string;
 
+    /** Returns the obsidian path to the given note (i.e. excludes the file extension). */
+    getNotePath(note: string): string;
+
     /** Returns a DataView source that **exclusively** selects every note in the collection. */
     getDataViewSource(): string;
 }

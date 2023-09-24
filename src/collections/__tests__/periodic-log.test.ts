@@ -15,7 +15,8 @@ describe("PeriodicLog", () => {
     // | W38 |  18 |  19 |  20 |  21 |  22 |  23 |  24 |
     // | W39 |  25 |  26 |  27 |  28 |  29 |  30 |     |
 
-    const common: PeriodicLogConfig = {
+    // Valid and logically-consistent config for tests that don't care about some of the values.
+    const etc: PeriodicLogConfig = {
         folder: "Logs",
         period: "P1D",
         fileNameFormat: "yyyy-MM-dd",
@@ -24,79 +25,92 @@ describe("PeriodicLog", () => {
 
     describe("Validating input", () => {
         it.each([null, undefined, ""])("throws when folder is %j", (folder: string) => {
-            expect(() => new PeriodicLog({ ...common, folder })).toThrowError("folder is required");
+            expect(() => new PeriodicLog({ ...etc, folder })).toThrowError("folder is required");
         });
 
         it.each(["1 hour", { hour: 1 }, null, undefined])("throws when period is %j", (period: string) => {
-            expect(() => new PeriodicLog({ ...common, period })).toThrowError("period must be valid");
+            expect(() => new PeriodicLog({ ...etc, period })).toThrowError("period must be valid");
         });
 
         it.each(["1 hour", { hour: 1 }])("throws when offset is %j", (offset: string) => {
-            expect(() => new PeriodicLog({ ...common, offset })).toThrowError("offset must be valid");
+            expect(() => new PeriodicLog({ ...etc, offset })).toThrowError("offset must be valid");
         });
 
         it.each([null, undefined, ""])("throws when fileNameFormat is %j", (fileNameFormat: string) => {
-            expect(() => new PeriodicLog({ ...common, fileNameFormat })).toThrowError("fileNameFormat is required");
+            expect(() => new PeriodicLog({ ...etc, fileNameFormat })).toThrowError("fileNameFormat is required");
         });
     });
 
-    describe(".getTitle(noteName)", () => {
+    describe(".getNotePath()", () => {
+        it("returns path with configured folder", () => {
+            const log = new PeriodicLog({ ...etc, folder: "Vault/Directory/To" });
+
+            expect(log.getNotePath("My Note")).toEqual("Vault/Directory/To/My Note");
+        });
+    });
+
+    describe(".getTitle()", () => {
+        // NOTE: These tests may fail if they're run just before midnight, but I don't care enough to fix it ;)
+
         it("returns title using now-format when note is today", () => {
             const log = new PeriodicLog({
-                ...common,
+                ...etc,
                 fileNameFormat: "yyyy-MM-dd",
                 titleFormat: "MMMM d, yyyy",
                 nowTitleFormat: "'Today'",
             });
             const nameOfTodaysNote = DateTime.now().toFormat(log.fileNameFormat);
+
             expect(log.getTitle(nameOfTodaysNote)).toEqual("Today");
         });
 
         it("returns title using default-format when note takes place today but nowFormat is undefined", () => {
             const log = new PeriodicLog({
-                ...common,
+                ...etc,
                 fileNameFormat: "yyyy-MM-dd",
                 titleFormat: "MMMM d, yyyy",
                 nowTitleFormat: undefined,
             });
             const nameOfTodaysNote = DateTime.now().toFormat(log.fileNameFormat);
+
             expect(log.getTitle(nameOfTodaysNote)).toEqual("September 24, 2023");
         });
 
         it("returns title using default-format when the note isn't today", () => {
             const log = new PeriodicLog({
-                ...common,
+                ...etc,
                 fileNameFormat: "yyyy-MM-dd",
                 titleFormat: "MMMM d, yyyy",
                 nowTitleFormat: "'Today'",
             });
             const yesterday = DateTime.now().minus({ day: 1 });
             const nameOfYesterdaysNote = yesterday.toFormat(log.fileNameFormat);
+
             expect(log.getTitle(nameOfYesterdaysNote)).toEqual(yesterday.toFormat(log.titleFormat));
         });
     });
 
     describe(".getDataViewSource()", () => {
         it("returns the configured folder as the source", () => {
-            const log = new PeriodicLog({ ...common, folder: "Folder" });
+            const log = new PeriodicLog({ ...etc, folder: "Folder" });
             expect(log.getDataViewSource()).toEqual(`"Folder"`);
         });
     });
 
     describe(".getInterval()", () => {
         it("supports daily intervals", () => {
-            const log = new PeriodicLog({ ...common, period: "P1D", fileNameFormat: "yyyy-MM-dd" });
+            const log = new PeriodicLog({ ...etc, period: "P1D", fileNameFormat: "yyyy-MM-dd" });
             expect(log.getInterval("2023-09-11")).toEqual(Interval.fromISO("2023-09-11/2023-09-12"));
         });
 
         it("supports weekly intervals", () => {
-            const log = new PeriodicLog({ ...common, period: "P1W", fileNameFormat: "kkkk-'W'WW" });
+            const log = new PeriodicLog({ ...etc, period: "P1W", fileNameFormat: "kkkk-'W'WW" });
             expect(log.getInterval("2023-W37")).toEqual(Interval.fromISO("2023-09-11/2023-09-18"));
         });
 
         it("supports sprint intervals (2 weeks long, starts on thursday)", () => {
             const log = new PeriodicLog({
-                ...common,
+                ...etc,
                 period: "P2W",
                 offset: "P3D",
                 fileNameFormat: "kkkk-'W'WW",
@@ -105,7 +119,7 @@ describe("PeriodicLog", () => {
         });
 
         it("supports monthly intervals", () => {
-            const log = new PeriodicLog({ ...common, period: "P1M", fileNameFormat: "yyyy-MM" });
+            const log = new PeriodicLog({ ...etc, period: "P1M", fileNameFormat: "yyyy-MM" });
             expect(log.getInterval("2023-09")).toEqual(Interval.fromISO("2023-09-01/2023-10-01"));
         });
     });

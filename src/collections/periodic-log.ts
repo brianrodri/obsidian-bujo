@@ -1,11 +1,16 @@
 import { DateTime, Duration, Interval } from "luxon";
-import { ICollection } from "./collection";
+import { ICollection } from "collections/collection";
 
 export class PeriodicLog implements ICollection {
+    // File system config
     public readonly folder: string;
     public readonly fileNameFormat: string;
+
+    // Format config
     public readonly titleFormat: string;
     public readonly nowTitleFormat: string;
+
+    // Interval config
     public readonly period: Duration;
     public readonly offset: Duration;
 
@@ -19,13 +24,17 @@ export class PeriodicLog implements ICollection {
         this.nowTitleFormat = config.nowTitleFormat ?? this.titleFormat;
     }
 
-    getTitle(noteName: string): string {
-        const interval = this.getInterval(noteName);
+    getNotePath(note: string): string {
+        return `${this.folder}/${note}`;
+    }
+
+    getTitle(note: string): string {
+        const interval = this.getInterval(note);
         return interval.start!.toFormat(interval.contains(DateTime.now()) ? this.nowTitleFormat : this.titleFormat);
     }
 
-    getInterval(noteName: string): Interval {
-        const fileDate = DateTime.fromFormat(noteName, this.fileNameFormat);
+    getInterval(note: string): Interval {
+        const fileDate = DateTime.fromFormat(note, this.fileNameFormat);
         const start = fileDate.plus(this.offset);
         const end = start.plus(this.period);
         return start.until(end);
