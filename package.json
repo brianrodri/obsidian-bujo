@@ -4,7 +4,10 @@
     "description": "Bring the Bullet Journal method to your Obsidian vault.",
     "author": "Brian Rodriguez <brian@brianrodri.com>",
     "license": "MIT",
-    "keywords": [],
+    "keywords": [
+        "obsidian",
+        "bullet journal"
+    ],
     "main": "main.js",
     "scripts": {
         "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
