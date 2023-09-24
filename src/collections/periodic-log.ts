@@ -2,6 +2,9 @@ import { DateTime, Duration, Interval } from "luxon";
 import { ICollection } from "collections/collection";
 
 export class PeriodicLog implements ICollection {
+    // User-defined identifier
+    public readonly id: string;
+
     // File system config
     public readonly folder: string;
     public readonly fileNameFormat: string;
@@ -16,12 +19,17 @@ export class PeriodicLog implements ICollection {
 
     constructor(config: PeriodicLogConfig) {
         this.validate(config);
+        this.id = config.id;
         this.folder = config.folder;
         this.period = Duration.fromISO(config.period);
         this.offset = config.offset ? Duration.fromISO(config.offset) : Duration.fromMillis(0);
         this.fileNameFormat = config.fileNameFormat;
         this.titleFormat = config.titleFormat;
         this.nowTitleFormat = config.nowTitleFormat ?? this.titleFormat;
+    }
+
+    getIdentifier(): string {
+        return this.id;
     }
 
     getVaultPath(note: string): string {
@@ -45,6 +53,9 @@ export class PeriodicLog implements ICollection {
     }
 
     private validate(config: PeriodicLogConfig) {
+        if (!config.id) {
+            throw new Error(`id is required but got value: ${JSON.stringify(config.id)}`);
+        }
         if (!config.folder) {
             throw new Error(`folder is required but got value: ${JSON.stringify(config.folder)}`);
         }
@@ -65,15 +76,18 @@ export class PeriodicLog implements ICollection {
 }
 
 export type PeriodicLogConfig = {
+    // User-defined identifier
+    id: string;
+
     // File system config
-    readonly folder: string;
-    readonly fileNameFormat: string;
+    folder: string;
+    fileNameFormat: string;
 
     // Format config
-    readonly titleFormat: string;
-    readonly nowTitleFormat?: string;
+    titleFormat: string;
+    nowTitleFormat?: string;
 
     // Interval config
-    readonly period: string;
-    readonly offset?: string;
+    period: string;
+    offset?: string;
 };

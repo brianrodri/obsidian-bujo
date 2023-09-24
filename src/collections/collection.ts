@@ -8,6 +8,13 @@ import { Interval } from "luxon";
  * - Do notes correspond to an interval of time, like a daily note?
  */
 export interface ICollection {
+    /**
+     * Returns the user-defined identifier of the collection.
+     *
+     * This enables user to refer to other collections when configuring their views.
+     */
+    getIdentifier(): string;
+
     /** Returns the title of the given note. */
     getNoteTitle(note: string): string;
 

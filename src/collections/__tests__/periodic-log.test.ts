@@ -17,6 +17,7 @@ describe("PeriodicLog", () => {
 
     // Valid and logically-consistent config for tests that don't care about some of the values.
     const etc: PeriodicLogConfig = {
+        id: "id",
         folder: "Logs",
         period: "P1D",
         fileNameFormat: "yyyy-MM-dd",
@@ -24,6 +25,10 @@ describe("PeriodicLog", () => {
     };
 
     describe("Validating input", () => {
+        it.each([null, undefined, ""])("throws when id is %j", (id: string) => {
+            expect(() => new PeriodicLog({ ...etc, id })).toThrowError("id is required");
+        });
+
         it.each([null, undefined, ""])("throws when folder is %j", (folder: string) => {
             expect(() => new PeriodicLog({ ...etc, folder })).toThrowError("folder is required");
         });
@@ -38,6 +43,14 @@ describe("PeriodicLog", () => {
 
         it.each([null, undefined, ""])("throws when fileNameFormat is %j", (fileNameFormat: string) => {
             expect(() => new PeriodicLog({ ...etc, fileNameFormat })).toThrowError("fileNameFormat is required");
+        });
+    });
+
+    describe(".getIdentifier()", () => {
+        it("returns configured id", () => {
+            const log = new PeriodicLog({ ...etc, id: "death-note" });
+
+            expect(log.getIdentifier()).toEqual("death-note");
         });
     });
 
