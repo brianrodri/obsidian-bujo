@@ -1,19 +1,33 @@
 {
     "compilerOptions": {
-        "jsx": "preserve",
+        // Type Checking
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+
+        // Modules
         "baseUrl": "src",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+
+        // Emit
+        "importHelpers": true,
         "inlineSourceMap": true,
         "inlineSources": true,
-        "noImplicitOverride": true,
-        "module": "ESNext",
-        "target": "ES6",
+
+        // JavaScript Support
         "allowJs": true,
-        "noImplicitAny": true,
+
+        // Interop Constraints
         "esModuleInterop": true,
-        "moduleResolution": "node",
-        "importHelpers": true,
         "isolatedModules": true,
-        "strictNullChecks": true,
-        "lib": ["DOM", "ESNext"]
+
+        // Language and Environment
+        "jsx": "preserve",
+        "lib": ["DOM", "ESNext"],
+        "moduleDetection": "legacy",
+        "target": "ES6"
     }
 }

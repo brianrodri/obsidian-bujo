@@ -25,23 +25,23 @@ describe("PeriodicLog", () => {
     };
 
     describe("Validating input", () => {
-        it.each([null, undefined, ""])("throws when id is %j", (id: string) => {
+        it.each([null, undefined, ""] as string[])("throws when id is %j", (id: string) => {
             expect(() => new PeriodicLog({ ...etc, id })).toThrowError("id is required");
         });
 
-        it.each([null, undefined, ""])("throws when folder is %j", (folder: string) => {
+        it.each([null, undefined, ""] as string[])("throws when folder is %j", (folder: string) => {
             expect(() => new PeriodicLog({ ...etc, folder })).toThrowError("folder is required");
         });
 
-        it.each(["1 hour", { hour: 1 }, null, undefined])("throws when period is %j", (period: string) => {
+        it.each(["1 hour", { hour: 1 }, null, undefined] as string[])("throws when period is %j", (period: string) => {
             expect(() => new PeriodicLog({ ...etc, period })).toThrowError("period must be valid");
         });
 
-        it.each(["1 hour", { hour: 1 }])("throws when offset is %j", (offset: string) => {
+        it.each(["1 hour", { hour: 1 }] as string[])("throws when offset is %j", (offset: string) => {
             expect(() => new PeriodicLog({ ...etc, offset })).toThrowError("offset must be valid");
         });
 
-        it.each([null, undefined, ""])("throws when fileNameFormat is %j", (fileNameFormat: string) => {
+        it.each([null, undefined, ""] as string[])("throws when fileNameFormat is %j", (fileNameFormat: string) => {
             expect(() => new PeriodicLog({ ...etc, fileNameFormat })).toThrowError("fileNameFormat is required");
         });
     });
