@@ -1,12 +1,25 @@
-import { Interval } from "luxon";
+import { DateTime, Interval } from "luxon";
 import { describe, expect, it } from "@jest/globals";
 import { PeriodicLog, PeriodicLogConfig } from "collections/periodic-log";
 
 describe("PeriodicLog", () => {
+    // This test uses dates in September 2023 because that's when I wrote the code. Here's a calendar:
+    //
+    // September 2023
+    // ==============
+    // |     | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
+    // | --- | --- | --- | --- | --- | --- | --- | --- |
+    // | W35 |     |     |     |     |   1 |   2 |   3 |
+    // | W36 |   4 |   5 |   6 |   7 |   8 |   9 |  10 |
+    // | W37 |  11 |  12 |  13 |  14 |  15 |  16 |  17 |
+    // | W38 |  18 |  19 |  20 |  21 |  22 |  23 |  24 |
+    // | W39 |  25 |  26 |  27 |  28 |  29 |  30 |     |
+
     const common: PeriodicLogConfig = {
         folder: "Logs",
         period: "P1D",
         fileNameFormat: "yyyy-MM-dd",
+        titleFormat: "yyyy-MM-dd",
     };
 
     describe("Validating input", () => {
@@ -27,17 +40,50 @@ describe("PeriodicLog", () => {
         });
     });
 
-    describe("Defining periods", () => {
-        // September 2023
-        // ==============
-        // |     | Mon | Tue | Wed | Thu | Fri | Sat | Sun |
-        // | --- | --- | --- | --- | --- | --- | --- | --- |
-        // | W35 |     |     |     |     |   1 |   2 |   3 |
-        // | W36 |   4 |   5 |   6 |   7 |   8 |   9 |  10 |
-        // | W37 |  11 |  12 |  13 |  14 |  15 |  16 |  17 |
-        // | W38 |  18 |  19 |  20 |  21 |  22 |  23 |  24 |
-        // | W39 |  25 |  26 |  27 |  28 |  29 |  30 |     |
+    describe(".getTitle(noteName)", () => {
+        it("returns title using now-format when note is today", () => {
+            const log = new PeriodicLog({
+                ...common,
+                fileNameFormat: "yyyy-MM-dd",
+                titleFormat: "MMMM d, yyyy",
+                nowTitleFormat: "'Today'",
+            });
+            const nameOfTodaysNote = DateTime.now().toFormat(log.fileNameFormat);
+            expect(log.getTitle(nameOfTodaysNote)).toEqual("Today");
+        });
 
+        it("returns title using default-format when note takes place today but nowFormat is undefined", () => {
+            const log = new PeriodicLog({
+                ...common,
+                fileNameFormat: "yyyy-MM-dd",
+                titleFormat: "MMMM d, yyyy",
+                nowTitleFormat: undefined,
+            });
+            const nameOfTodaysNote = DateTime.now().toFormat(log.fileNameFormat);
+            expect(log.getTitle(nameOfTodaysNote)).toEqual("September 24, 2023");
+        });
+
+        it("returns title using default-format when the note isn't today", () => {
+            const log = new PeriodicLog({
+                ...common,
+                fileNameFormat: "yyyy-MM-dd",
+                titleFormat: "MMMM d, yyyy",
+                nowTitleFormat: "'Today'",
+            });
+            const yesterday = DateTime.now().minus({ day: 1 });
+            const nameOfYesterdaysNote = yesterday.toFormat(log.fileNameFormat);
+            expect(log.getTitle(nameOfYesterdaysNote)).toEqual(yesterday.toFormat(log.titleFormat));
+        });
+    });
+
+    describe(".getDataViewSource()", () => {
+        it("returns the configured folder as the source", () => {
+            const log = new PeriodicLog({ ...common, folder: "Folder" });
+            expect(log.getDataViewSource()).toEqual(`"Folder"`);
+        });
+    });
+
+    describe(".getInterval()", () => {
         it("supports daily intervals", () => {
             const log = new PeriodicLog({ ...common, period: "P1D", fileNameFormat: "yyyy-MM-dd" });
             expect(log.getInterval("2023-09-11")).toEqual(Interval.fromISO("2023-09-11/2023-09-12"));

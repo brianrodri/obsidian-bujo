@@ -9,6 +9,7 @@ const CUSTOM_SETTINGS: ObsidianBujoSettings = {
                 folder: "Logs",
                 period: "P1D",
                 fileNameFormat: "yyyy-MM-dd",
+                titleFormat: "yyyy-MM-dd",
             },
         ],
     },
