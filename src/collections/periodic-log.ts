@@ -5,12 +5,14 @@ export class PeriodicLog {
     public readonly folder: string;
     public readonly period: Duration;
     public readonly offset: Duration;
+    public readonly fileNameFormat: string;
 
     constructor(config: PeriodicLogConfig) {
         this.validate(config);
         this.folder = config.folder;
         this.period = Duration.fromISO(config.period);
         this.offset = config.offset ? Duration.fromISO(config.offset) : Duration.fromMillis(0);
+        this.fileNameFormat = config.fileNameFormat;
     }
 
     validate(config: PeriodicLogConfig) {
@@ -30,10 +32,13 @@ export class PeriodicLog {
             const error = `${offset.invalidReason}: ${offset.invalidExplanation}`;
             throw new Error(`offset must be valid but got error: ${JSON.stringify(error)}`);
         }
+        if (!config.fileNameFormat) {
+            throw new Error(`fileNameFormat is required but got value: ${JSON.stringify(config.fileNameFormat)}`);
+        }
     }
 
     getInterval(fileName: string): Interval {
-        const fileDate = DateTime.fromISO(fileName);
+        const fileDate = DateTime.fromFormat(fileName, this.fileNameFormat);
         const start = fileDate.plus(this.offset);
         const end = start.plus(this.period);
         return start.until(end);
@@ -45,4 +50,5 @@ export type PeriodicLogConfig = {
     readonly folder: string;
     readonly period: string;
     readonly offset?: string;
+    readonly fileNameFormat: string;
 };

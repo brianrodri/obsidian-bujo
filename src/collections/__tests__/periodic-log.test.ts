@@ -7,6 +7,7 @@ describe("PeriodicLog", () => {
         kind: "periodic-log" as const,
         folder: "Logs",
         period: "P1D",
+        fileNameFormat: "yyyy-MM-dd",
     };
 
     describe("Validating input", () => {
@@ -25,6 +26,10 @@ describe("PeriodicLog", () => {
         it.each(["1 hour", { hour: 1 }])("throws when offset is %j", (offset: string) => {
             expect(() => new PeriodicLog({ ...common, offset })).toThrowError("offset must be valid");
         });
+
+        it.each([null, undefined, ""])("throws when fileNameFormat is %j", (fileNameFormat: string) => {
+            expect(() => new PeriodicLog({ ...common, fileNameFormat })).toThrowError("fileNameFormat is required");
+        });
     });
 
     describe("Defining periods", () => {
@@ -39,12 +44,12 @@ describe("PeriodicLog", () => {
         // | W39 |  25 |  26 |  27 |  28 |  29 |  30 |     |
 
         it("supports daily intervals", () => {
-            const log = new PeriodicLog({ ...common, period: "P1D" });
+            const log = new PeriodicLog({ ...common, period: "P1D", fileNameFormat: "yyyy-MM-dd" });
             expect(log.getInterval("2023-09-11")).toEqual(Interval.fromISO("2023-09-11/2023-09-12"));
         });
 
         it("supports weekly intervals", () => {
-            const log = new PeriodicLog({ ...common, period: "P1W" });
+            const log = new PeriodicLog({ ...common, period: "P1W", fileNameFormat: "kkkk-'W'WW" });
             expect(log.getInterval("2023-W37")).toEqual(Interval.fromISO("2023-09-11/2023-09-18"));
         });
 
@@ -53,12 +58,13 @@ describe("PeriodicLog", () => {
                 ...common,
                 period: "P2W",
                 offset: "P3D",
+                fileNameFormat: "kkkk-'W'WW",
             });
             expect(log.getInterval("2023-W37")).toEqual(Interval.fromISO("2023-09-14/2023-09-28"));
         });
 
         it("supports monthly intervals", () => {
-            const log = new PeriodicLog({ ...common, period: "P1M" });
+            const log = new PeriodicLog({ ...common, period: "P1M", fileNameFormat: "yyyy-MM" });
             expect(log.getInterval("2023-09")).toEqual(Interval.fromISO("2023-09-01/2023-10-01"));
         });
     });
