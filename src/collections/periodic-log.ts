@@ -16,9 +16,6 @@ export class PeriodicLog {
     }
 
     validate(config: PeriodicLogConfig) {
-        if (config.kind !== this.kind) {
-            throw new Error(`kind must be "${this.kind}" but got value: ${JSON.stringify(config.kind)}`);
-        }
         if (!config.folder) {
             throw new Error(`folder is required but got value: ${JSON.stringify(config.folder)}`);
         }
@@ -46,7 +43,6 @@ export class PeriodicLog {
 }
 
 export type PeriodicLogConfig = {
-    readonly kind: PeriodicLog["kind"];
     readonly folder: string;
     readonly period: string;
     readonly offset?: string;

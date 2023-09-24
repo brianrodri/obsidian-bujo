@@ -6,7 +6,6 @@ const CUSTOM_SETTINGS: ObsidianBujoSettings = {
     collections: {
         periodic: [
             {
-                kind: "periodic-log",
                 folder: "Logs",
                 period: "P1D",
                 fileNameFormat: "yyyy-MM-dd",

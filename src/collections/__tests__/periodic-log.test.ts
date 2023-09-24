@@ -1,20 +1,15 @@
 import { Interval } from "luxon";
 import { describe, expect, it } from "@jest/globals";
-import { PeriodicLog } from "collections/periodic-log";
+import { PeriodicLog, PeriodicLogConfig } from "collections/periodic-log";
 
 describe("PeriodicLog", () => {
-    const common = {
-        kind: "periodic-log" as const,
+    const common: PeriodicLogConfig = {
         folder: "Logs",
         period: "P1D",
         fileNameFormat: "yyyy-MM-dd",
     };
 
     describe("Validating input", () => {
-        it.each([null, undefined, ""])("throws when kind is %j", (kind: "periodic-log") => {
-            expect(() => new PeriodicLog({ ...common, kind })).toThrowError('kind must be "periodic-log"');
-        });
-
         it.each([null, undefined, ""])("throws when folder is %j", (folder: string) => {
             expect(() => new PeriodicLog({ ...common, folder })).toThrowError("folder is required");
         });
