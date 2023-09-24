@@ -41,15 +41,7 @@ describe("PeriodicLog", () => {
         });
     });
 
-    describe(".getNotePath()", () => {
-        it("returns path with configured folder", () => {
-            const log = new PeriodicLog({ ...etc, folder: "Vault/Directory/To" });
-
-            expect(log.getNotePath("My Note")).toEqual("Vault/Directory/To/My Note");
-        });
-    });
-
-    describe(".getTitle()", () => {
+    describe(".getNoteTitle()", () => {
         // NOTE: These tests may fail if they're run just before midnight, but I don't care enough to fix it ;)
 
         it("returns title using now-format when note is today", () => {
@@ -61,7 +53,7 @@ describe("PeriodicLog", () => {
             });
             const nameOfTodaysNote = DateTime.now().toFormat(log.fileNameFormat);
 
-            expect(log.getTitle(nameOfTodaysNote)).toEqual("Today");
+            expect(log.getNoteTitle(nameOfTodaysNote)).toEqual("Today");
         });
 
         it("returns title using default-format when note takes place today but nowFormat is undefined", () => {
@@ -73,7 +65,7 @@ describe("PeriodicLog", () => {
             });
             const nameOfTodaysNote = DateTime.now().toFormat(log.fileNameFormat);
 
-            expect(log.getTitle(nameOfTodaysNote)).toEqual("September 24, 2023");
+            expect(log.getNoteTitle(nameOfTodaysNote)).toEqual("September 24, 2023");
         });
 
         it("returns title using default-format when the note isn't today", () => {
@@ -86,26 +78,19 @@ describe("PeriodicLog", () => {
             const yesterday = DateTime.now().minus({ day: 1 });
             const nameOfYesterdaysNote = yesterday.toFormat(log.fileNameFormat);
 
-            expect(log.getTitle(nameOfYesterdaysNote)).toEqual(yesterday.toFormat(log.titleFormat));
+            expect(log.getNoteTitle(nameOfYesterdaysNote)).toEqual(yesterday.toFormat(log.titleFormat));
         });
     });
 
-    describe(".getDataViewSource()", () => {
-        it("returns the configured folder as the source", () => {
-            const log = new PeriodicLog({ ...etc, folder: "Folder" });
-            expect(log.getDataViewSource()).toEqual(`"Folder"`);
-        });
-    });
-
-    describe(".getInterval()", () => {
+    describe(".getNoteInterval()", () => {
         it("supports daily intervals", () => {
             const log = new PeriodicLog({ ...etc, period: "P1D", fileNameFormat: "yyyy-MM-dd" });
-            expect(log.getInterval("2023-09-11")).toEqual(Interval.fromISO("2023-09-11/2023-09-12"));
+            expect(log.getNoteInterval("2023-09-11")).toEqual(Interval.fromISO("2023-09-11/2023-09-12"));
         });
 
         it("supports weekly intervals", () => {
             const log = new PeriodicLog({ ...etc, period: "P1W", fileNameFormat: "kkkk-'W'WW" });
-            expect(log.getInterval("2023-W37")).toEqual(Interval.fromISO("2023-09-11/2023-09-18"));
+            expect(log.getNoteInterval("2023-W37")).toEqual(Interval.fromISO("2023-09-11/2023-09-18"));
         });
 
         it("supports sprint intervals (2 weeks long, starts on thursday)", () => {
@@ -115,12 +100,27 @@ describe("PeriodicLog", () => {
                 offset: "P3D",
                 fileNameFormat: "kkkk-'W'WW",
             });
-            expect(log.getInterval("2023-W37")).toEqual(Interval.fromISO("2023-09-14/2023-09-28"));
+            expect(log.getNoteInterval("2023-W37")).toEqual(Interval.fromISO("2023-09-14/2023-09-28"));
         });
 
         it("supports monthly intervals", () => {
             const log = new PeriodicLog({ ...etc, period: "P1M", fileNameFormat: "yyyy-MM" });
-            expect(log.getInterval("2023-09")).toEqual(Interval.fromISO("2023-09-01/2023-10-01"));
+            expect(log.getNoteInterval("2023-09")).toEqual(Interval.fromISO("2023-09-01/2023-10-01"));
+        });
+    });
+
+    describe(".getVaultPath()", () => {
+        it("returns path with configured folder", () => {
+            const log = new PeriodicLog({ ...etc, folder: "Vault/Directory/To" });
+
+            expect(log.getVaultPath("My Note")).toEqual("Vault/Directory/To/My Note");
+        });
+    });
+
+    describe(".getDataViewSource()", () => {
+        it("returns the configured folder as the source", () => {
+            const log = new PeriodicLog({ ...etc, folder: "Folder" });
+            expect(log.getDataViewSource()).toEqual(`"Folder"`);
         });
     });
 });

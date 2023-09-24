@@ -24,16 +24,16 @@ export class PeriodicLog implements ICollection {
         this.nowTitleFormat = config.nowTitleFormat ?? this.titleFormat;
     }
 
-    getNotePath(note: string): string {
+    getVaultPath(note: string): string {
         return `${this.folder}/${note}`;
     }
 
-    getTitle(note: string): string {
-        const interval = this.getInterval(note);
+    getNoteTitle(note: string): string {
+        const interval = this.getNoteInterval(note);
         return interval.start!.toFormat(interval.contains(DateTime.now()) ? this.nowTitleFormat : this.titleFormat);
     }
 
-    getInterval(note: string): Interval {
+    getNoteInterval(note: string): Interval {
         const fileDate = DateTime.fromFormat(note, this.fileNameFormat);
         const start = fileDate.plus(this.offset);
         const end = start.plus(this.period);
