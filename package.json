@@ -50,6 +50,7 @@
         "tslib": "latest",
         "typescript": "latest"
     },
+    "//": "TODO(liamcain/obsidian-calendar-ui#20): Needed to get off of a vulnerable svelte version",
     "overrides": {
         "obsidian-dataview": {
             "svelte": "^3.59.2"
