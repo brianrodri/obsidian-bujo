@@ -3,7 +3,7 @@
     "name": "Obsidian BuJo",
     "version": "0.0.1",
     "minAppVersion": "0.15.0",
-    "description": "Bullet Journaling for your Obsidian Vault.",
+    "description": "Bring the Bullet Journal method to your Obsidian vault.",
     "author": "Brian Rodriguez <brian@brianrodri.com>",
     "authorUrl": "https://brianrodri.com",
     "isDesktopOnly": false
