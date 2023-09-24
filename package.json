@@ -39,6 +39,7 @@
         "esbuild": "latest",
         "husky": "latest",
         "jest": "latest",
+        "jest-environment-jsdom": "latest",
         "lint-staged": "latest",
         "prettier": "latest",
         "ts-node": "latest",

@@ -1,9 +1,5 @@
-import type { Config } from "jest";
-
-const config: Config = {
-    modulePaths: ["<rootDir>/src"],
+export default {
     preset: "ts-jest",
-    testEnvironment: "node",
-};
-
-export default config;
+    testEnvironment: "jsdom",
+    moduleDirectories: ["node_modules", "src"],
+} as import("jest").Config;
