@@ -7,12 +7,13 @@
     "keywords": [],
     "main": "main.js",
     "scripts": {
-        "dev": "node esbuild.config.mjs",
         "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+        "test": "jest --coverage",
+        "dev": "node esbuild.config.mjs",
         "version": "node version-bump.mjs && git add manifest.json versions.json",
         "format": "prettier --write --ignore-unknown .",
         "prepare": "husky install",
-        "test": "jest --coverage"
+        "watch": "jest --coverage --watch"
     },
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
