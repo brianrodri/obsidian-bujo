@@ -43,11 +43,16 @@
         "jest-environment-jsdom": "latest",
         "lint-staged": "latest",
         "obsidian": "latest",
-        "obsidian-dataview": "^0.4.21",
+        "obsidian-dataview": "latest",
         "prettier": "latest",
         "ts-jest": "latest",
         "ts-node": "latest",
         "tslib": "latest",
         "typescript": "latest"
+    },
+    "overrides": {
+        "obsidian-dataview": {
+            "svelte": "^3.59.2"
+        }
     }
 }
