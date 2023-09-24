@@ -43,7 +43,7 @@
         "jest-environment-jsdom": "latest",
         "lint-staged": "latest",
         "obsidian": "latest",
-        "obsidian-dataview": "latest",
+        "obsidian-dataview": "^0.5.51",
         "prettier": "latest",
         "ts-jest": "latest",
         "ts-node": "latest",
