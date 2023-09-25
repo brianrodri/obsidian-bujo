@@ -29,3 +29,6 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                   name: docs-coverage-badge
+
+            - name: Echo download path
+              run: echo ${{steps.download.outputs.download-path}}
