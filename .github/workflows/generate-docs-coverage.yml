@@ -22,5 +22,5 @@ jobs:
             - name: Upload Badge
               uses: actions/upload-artifact@v3
               with:
-                  name: coverage-badge
+                  name: docs-coverage-badge
                   path: docs/coverage.svg
