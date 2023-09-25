@@ -24,3 +24,8 @@ jobs:
               with:
                   name: docs-coverage-badge
                   path: docs/coverage.svg
+
+            - name: Download Badge
+              uses: actions/download-artifact@v3
+              with:
+                  name: docs-coverage-badge
