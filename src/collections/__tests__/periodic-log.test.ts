@@ -76,9 +76,10 @@ describe("PeriodicLog", () => {
                 titleFormat: "MMMM d, yyyy",
                 nowTitleFormat: undefined,
             });
-            const nameOfTodaysNote = DateTime.now().toFormat(log.fileNameFormat);
+            const now = DateTime.now();
+            const nameOfTodaysNote = now.toFormat(log.fileNameFormat);
 
-            expect(log.getNoteTitle(nameOfTodaysNote)).toEqual("September 24, 2023");
+            expect(log.getNoteTitle(nameOfTodaysNote)).toEqual(now.toFormat(log.titleFormat));
         });
 
         it("returns title using default-format when the note isn't today", () => {
