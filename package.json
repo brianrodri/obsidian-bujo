@@ -16,7 +16,8 @@
         "version": "node version-bump.mjs && git add manifest.json versions.json",
         "format": "prettier --write --ignore-unknown .",
         "prepare": "husky install",
-        "watch": "jest --coverage --watch"
+        "watch": "jest --coverage --watch",
+        "generate-docs": "typedoc --out docs src"
     },
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
@@ -37,6 +38,7 @@
         "@typescript-eslint/parser": "latest",
         "@ungap/structured-clone": "latest",
         "builtin-modules": "latest",
+        "documentation-coverage": "latest",
         "esbuild": "latest",
         "husky": "latest",
         "jest": "latest",
@@ -48,6 +50,7 @@
         "ts-jest": "latest",
         "ts-node": "latest",
         "tslib": "latest",
+        "typedoc": "latest",
         "typescript": "latest"
     },
     "//": "TODO(liamcain/obsidian-calendar-ui#20): Needed to get off of a vulnerable svelte version",

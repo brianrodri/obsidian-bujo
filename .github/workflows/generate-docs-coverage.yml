@@ -1,0 +1,29 @@
+name: Generate Docs and Calculate Coverage
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Install Dependencies
+              run: npm install
+
+            - name: Generate Documentation
+              run: npm run generate-docs
+
+            - name: Calculate Documentation Coverage
+              run: npx documentation-coverage --input docs --output coverage-badge.svg
+
+            - name: Upload Badge
+              uses: actions/upload-artifact@v2
+              with:
+                  name: coverage-badge
+                  path: coverage-badge.svg
