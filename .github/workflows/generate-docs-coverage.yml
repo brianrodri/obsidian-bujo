@@ -19,11 +19,8 @@ jobs:
             - name: Generate Documentation
               run: npm run generate-docs
 
-            - name: Calculate Documentation Coverage
-              run: npx documentation-coverage --input docs --output coverage-badge.svg
-
             - name: Upload Badge
               uses: actions/upload-artifact@v2
               with:
                   name: coverage-badge
-                  path: coverage-badge.svg
+                  path: docs/coverage-badge.svg

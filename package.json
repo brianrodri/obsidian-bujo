@@ -17,7 +17,7 @@
         "format": "prettier --write --ignore-unknown .",
         "prepare": "husky install",
         "watch": "jest --coverage --watch",
-        "generate-docs": "typedoc --out docs src"
+        "generate-docs": "typedoc"
     },
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
@@ -38,7 +38,6 @@
         "@typescript-eslint/parser": "latest",
         "@ungap/structured-clone": "latest",
         "builtin-modules": "latest",
-        "documentation-coverage": "latest",
         "esbuild": "latest",
         "husky": "latest",
         "jest": "latest",
@@ -51,6 +50,7 @@
         "ts-node": "latest",
         "tslib": "latest",
         "typedoc": "latest",
+        "typedoc-plugin-coverage": "latest",
         "typescript": "latest"
     },
     "//": "TODO(liamcain/obsidian-calendar-ui#20): Needed to get off of a vulnerable svelte version",

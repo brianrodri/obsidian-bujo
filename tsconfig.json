@@ -28,6 +28,7 @@
         "jsx": "preserve",
         "lib": ["DOM", "ESNext"],
         "moduleDetection": "legacy",
+        "skipLibCheck": true,
         "target": "ES6"
     }
 }

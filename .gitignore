@@ -23,3 +23,6 @@ data.json
 
 # Exclude coverage reports
 coverage/
+
+# Exclude generated documentation
+docs/

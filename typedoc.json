@@ -1,0 +1,5 @@
+{
+    "exclude": ["**/node_modules/**/*", "**/__tests__/**/*"],
+    "entryPoints": ["src/**/*"],
+    "plugin": ["typedoc-plugin-coverage"]
+}
