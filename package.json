@@ -21,8 +21,8 @@
         "generate-docs": "typedoc"
     },
     "lint-staged": {
-        "**/*": "npm run lint",
-        "**/*": "npm run format"
+        "**/*": "eslint --fix --max-warnings=0 ",
+        "**/*": "prettier --cache --write "
     },
     "dependencies": {
         "luxon": "latest",
