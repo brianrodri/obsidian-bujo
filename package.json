@@ -22,7 +22,7 @@
     },
     "lint-staged": {
         "**/*": "eslint --fix --max-warnings=0 ",
-        "**/*": "prettier --cache --write "
+        "**/*": "prettier --cache --write --ignore-unknown "
     },
     "dependencies": {
         "luxon": "latest",
