@@ -6,7 +6,7 @@ export default class ObsidianBujo extends Plugin {
 
     constructor(app: App, manifest: PluginManifest) {
         super(app, manifest);
-        this.settingsManager = new SettingsManager(this.loadData, this.saveData);
+        this.settingsManager = new SettingsManager(this.loadData.bind(this), this.saveData.bind(this));
     }
 
     override async onload() {

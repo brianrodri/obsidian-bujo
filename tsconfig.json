@@ -9,13 +9,14 @@
 
         // Modules
         "baseUrl": "src",
-        "module": "nodenext",
-        "moduleResolution": "nodenext",
+        "module": "ESNext",
+        "moduleResolution": "node",
 
         // Emit
         "importHelpers": true,
         "inlineSourceMap": true,
         "inlineSources": true,
+        "sourceMap": true,
 
         // JavaScript Support
         "allowJs": true,
@@ -26,9 +27,8 @@
 
         // Language and Environment
         "jsx": "preserve",
-        "lib": ["DOM", "ESNext"],
-        "moduleDetection": "legacy",
+        "lib": ["DOM", "ES5", "scripthost", "es2015"],
         "skipLibCheck": true,
-        "target": "ES6"
+        "target": "ES5"
     }
 }
