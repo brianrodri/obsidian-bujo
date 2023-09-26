@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "luxon": "latest",
+        "obsidian-dataview": "^0.5.56",
         "react": "latest",
         "react-dom": "latest"
     },
@@ -44,7 +45,6 @@
         "jest-environment-jsdom": "latest",
         "lint-staged": "latest",
         "obsidian": "latest",
-        "obsidian-dataview": "^0.5.51",
         "prettier": "latest",
         "ts-jest": "latest",
         "ts-node": "latest",
