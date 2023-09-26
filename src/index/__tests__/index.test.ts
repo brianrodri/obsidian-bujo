@@ -1,7 +1,6 @@
 import { ObsidianBujoIndex } from "index/index";
 import { describe, it, expect } from "@jest/globals";
 import { PeriodicLogConfig } from "collections/periodic-log";
-import { ObsidianBujoSettings } from "settings/settings";
 
 function getPeriodicLog({ ...neededByTest }: Partial<PeriodicLogConfig>) {
     return {
