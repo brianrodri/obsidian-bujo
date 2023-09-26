@@ -16,12 +16,7 @@ const DEFAULT_PLUGINS = [
 
 const BASE_CONFIG = {
     input: "src/main.ts",
-    external: ["obsidian", "obsidian-dataview", "@codemirror/view", "@codemirror/state", "@codemirror/language"],
-    onwarn: (warning, warn) => {
-        // Sorry rollup, but we're using eval...
-        if (/Use of eval is strongly discouraged/.test(warning.message)) return;
-        warn(warning);
-    },
+    external: ["obsidian", "@codemirror/view", "@codemirror/state", "@codemirror/language"],
 };
 
 const DEVO_PLUGIN_CONFIG = {
