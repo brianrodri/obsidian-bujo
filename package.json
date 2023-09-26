@@ -16,11 +16,13 @@
         "build": "BUILD=PROD rollup --config rollup.config.js",
         "watch": "jest --coverage --watchAll",
         "version": "node version-bump.mjs && git add manifest.json versions.json",
+        "lint": "eslint . --fix --max-warnings=0",
         "format": "prettier --write --ignore-unknown .",
         "generate-docs": "typedoc"
     },
     "lint-staged": {
-        "**/*": "prettier --write --ignore-unknown"
+        "**/*": "npm run lint",
+        "**/*": "npm run format"
     },
     "dependencies": {
         "luxon": "latest",
@@ -31,6 +33,7 @@
     "devDependencies": {
         "@jest/globals": "latest",
         "@rollup/plugin-commonjs": "latest",
+        "@rollup/plugin-eslint": "latest",
         "@rollup/plugin-node-resolve": "latest",
         "@rollup/plugin-typescript": "latest",
         "@types/luxon": "latest",
@@ -43,6 +46,8 @@
         "@typescript-eslint/parser": "latest",
         "@ungap/structured-clone": "latest",
         "builtin-modules": "latest",
+        "eslint": "latest",
+        "eslint-config-prettier": "latest",
         "husky": "latest",
         "jest": "latest",
         "jest-environment-jsdom": "latest",

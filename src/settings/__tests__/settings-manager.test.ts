@@ -54,7 +54,7 @@ describe("SettingsManager", () => {
         expect(consumerMock).toHaveBeenCalledWith(settingsManager.get());
     });
 
-    it("updates using deep clone", async () => {
+    it("updates using deep clone", () => {
         const settingsManager = new SettingsManager(providerMock, consumerMock);
         settingsManager.update(CUSTOM_SETTINGS);
 

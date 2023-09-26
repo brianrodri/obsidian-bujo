@@ -1,4 +1,10 @@
 {
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true,
+        "jest": true
+    },
     "root": true,
     "parser": "@typescript-eslint/parser",
     "env": { "node": true },
@@ -6,7 +12,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended-type-checked",
+        "prettier"
     ],
     "parserOptions": {
         "sourceType": "module"

@@ -1,15 +1,17 @@
-import nodeResolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import webWorker from "rollup-plugin-web-worker-loader";
-import copy from "rollup-plugin-copy";
-import typescript2 from "rollup-plugin-typescript2";
+"use strict";
+const commonjs = require("@rollup/plugin-commonjs");
+const eslint = require("@rollup/plugin-eslint");
+const nodeResolve = require("@rollup/plugin-node-resolve");
+const copy = require("rollup-plugin-copy");
+const typescript2 = require("rollup-plugin-typescript2");
+const webWorker = require("rollup-plugin-web-worker-loader");
 
-const getRollupPlugins = (tsconfig, ...plugins) => [
-    typescript2(tsconfig),
+const DEFAULT_PLUGINS = [
+    typescript2(),
     nodeResolve({ browser: true }),
     commonjs(),
     webWorker({ inline: true, forceInline: true, targetPlatform: "browser" }),
-    ...plugins,
+    eslint(),
 ];
 
 const BASE_CONFIG = {
@@ -31,15 +33,15 @@ const DEVO_PLUGIN_CONFIG = {
         exports: "default",
         name: "DEVO",
     },
-    plugins: getRollupPlugins(
-        undefined,
+    plugins: [
+        ...DEFAULT_PLUGINS,
         copy({
             targets: [
                 { src: "manifest.json", dest: "test-vault/.obsidian/plugins/obsidian-bujo/" },
                 { src: "styles.css", dest: "test-vault/.obsidian/plugins/obsidian-bujo/" },
             ],
         }),
-    ),
+    ],
 };
 
 const PROD_PLUGIN_CONFIG = {
@@ -52,7 +54,7 @@ const PROD_PLUGIN_CONFIG = {
         exports: "default",
         name: "PROD",
     },
-    plugins: getRollupPlugins(),
+    plugins: DEFAULT_PLUGINS,
 };
 
 export default [process.env.BUILD === "PROD" ? PROD_PLUGIN_CONFIG : DEVO_PLUGIN_CONFIG];

@@ -13,7 +13,7 @@ export class SettingsManager {
         return this.settings;
     }
 
-    async update(partial: Partial<ObsidianBujoSettings>) {
+    update(partial: Partial<ObsidianBujoSettings>) {
         this.settings = structuredClone({ ...this.settings, ...partial });
     }
 
