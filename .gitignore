@@ -26,3 +26,10 @@ coverage/
 
 # Exclude generated documentation
 docs/
+
+# Ignore .obsidian
+test-vault/.obsidian/*
+# ...except for which plugins are enabled
+!test-vault/.obsidian/community-plugins.json
+# ...and keeping track of updates to the hotreload plugin.
+!test-vault/.obsidian/hot-reload-master/*

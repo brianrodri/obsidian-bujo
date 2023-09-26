@@ -1,2 +1,5 @@
 # Ignore test-vault
 test-vault
+
+# Ignore git directories
+**/.git
