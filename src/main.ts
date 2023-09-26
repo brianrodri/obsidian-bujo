@@ -17,11 +17,15 @@ export default class ObsidianBujo extends Plugin {
         await this.settingsManager.load();
     }
 
-    async loadSettings(): Promise<ObsidianBujoSettings> {
+    override async onunload() {
+        await this.settingsManager.save();
+    }
+
+    async loadSettings() {
         return (await this.loadData()) as ObsidianBujoSettings;
     }
 
-    async saveSettings(settings: ObsidianBujoSettings): Promise<void> {
+    async saveSettings(settings: ObsidianBujoSettings) {
         await this.saveData(settings);
     }
 }
