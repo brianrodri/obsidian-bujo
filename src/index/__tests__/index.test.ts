@@ -2,23 +2,17 @@ import { ObsidianBujoIndex } from "index/index";
 import { describe, it, expect } from "@jest/globals";
 import { PeriodicLog, PeriodicLogConfig } from "collections/periodic-log";
 
-const PERIODIC_ETC: PeriodicLogConfig = {
-    id: "id",
-    folder: "folder",
+function newPeriodicIndex(...periodic: PeriodicLogConfig[]) {
+    return new ObsidianBujoIndex({ collections: { periodic } });
+}
+
+const withConfig = (id: string, folder: string): PeriodicLogConfig => ({
     fileNameFormat: "yyyy-MM-dd",
     titleFormat: "MMMM d, yyyy",
     period: "P1D",
-};
-
-function newPeriodicIndex(...periodicConfigs: Partial<PeriodicLogConfig>[]) {
-    return new ObsidianBujoIndex({
-        collections: {
-            periodic: periodicConfigs.map(etc => ({ ...PERIODIC_ETC, ...etc })),
-        },
-    });
-}
-
-const withConfig = (id: string, folder: string): Partial<PeriodicLogConfig> => ({ folder, id });
+    folder,
+    id,
+});
 
 describe("ObsidianBujoIndex", () => {
     describe("Validation", () => {
@@ -42,17 +36,40 @@ describe("ObsidianBujoIndex", () => {
             { ids: DUPLICATE_IDS, folders: UNIQUE_FOLDERS },
             { ids: DUPLICATE_IDS, folders: DUPLICATE_FOLDERS },
         ])("rejects collections when folders=%j and ids=%j (due to duplicates)", ({ ids, folders }) => {
-            expect(() => newPeriodicIndex(...ids.map((id, i) => withConfig(id, folders[i])))).toThrow("must be unique");
+            expect(() => newPeriodicIndex(...ids.map((id, i) => withConfig(id, folders[i])))).toThrow(
+                "must have unique",
+            );
         });
     });
 
     describe(".getCollections()", () => {
         it("returns expected collections", () => {
-            const index = newPeriodicIndex(withConfig("/", "Index"), withConfig("Hobbies", "Ideas"));
-            expect(index.getCollections()).toEqual([
-                new PeriodicLog({ ...PERIODIC_ETC, ...withConfig("/", "Index") }),
-                new PeriodicLog({ ...PERIODIC_ETC, ...withConfig("Hobbies", "Ideas") }),
-            ]);
+            const index = newPeriodicIndex(withConfig("index", "/"), withConfig("hobbies", "Hobbies"));
+            expect(index.getCollections()).toEqual(
+                expect.arrayContaining([
+                    new PeriodicLog(withConfig("index", "/")),
+                    new PeriodicLog(withConfig("hobbies", "Hobbies")),
+                ]),
+            );
+        });
+    });
+
+    describe(".resolveNote()", () => {
+        it.each([
+            ["2023-09-27.md", "index"],
+            ["Hobbies/2023-09-27.md", "hobbies"],
+        ])("resolves %j to %j", (notePath, collectionId) => {
+            const index = newPeriodicIndex(withConfig("index", "/"), withConfig("hobbies", "Hobbies"));
+
+            const [note, collection] = index.resolveNote(notePath);
+
+            expect([note, collection?.getIdentifier()]).toEqual(["2023-09-27", collectionId]);
+        });
+
+        it('fails to resolve "2023-09-27.md" without a daily log', () => {
+            const index = newPeriodicIndex({ ...withConfig("/", "index"), fileNameFormat: "yyyy-MM" });
+
+            expect(index.resolveNote("2023-09-27.md")).toEqual([null, null]);
         });
     });
 });

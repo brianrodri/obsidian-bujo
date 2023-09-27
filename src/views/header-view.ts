@@ -1,11 +1,11 @@
 import { ICollection } from "collections/collection";
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 import { IView } from "views/view";
 
 export interface IRenderer {
     getTargetNote(): string;
     getTargetCollection(): ICollection;
-    render(el: ReactElement | string): Promise<void>;
+    render(el: ReactNode): Promise<void>;
 }
 
 export class HeaderView implements IView {
