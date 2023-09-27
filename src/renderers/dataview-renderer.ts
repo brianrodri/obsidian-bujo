@@ -6,11 +6,11 @@ import { IRenderer } from "renderers/renderer";
 
 export class DataviewRenderer implements IRenderer {
     constructor(
-        public readonly api: DataviewApi,
-        public readonly component: Component,
-        public readonly container: HTMLElement,
-        public readonly note: string,
-        public readonly collection: ICollection,
+        private readonly api: DataviewApi,
+        private readonly component: Component,
+        private readonly container: HTMLElement,
+        private readonly note: string,
+        private readonly collection: ICollection,
     ) {}
 
     getTargetNote(): string {
