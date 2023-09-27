@@ -11,8 +11,7 @@ export class HeaderView implements IView {
 
     async apply(renderer: IRenderer) {
         const collection = renderer.getTargetCollection()!;
-        const note = collection.resolveNote(renderer.getTargetNote())!;
-        return renderer.render(`${this.markup} ${collection.getNoteTitle(note)}`);
+        return renderer.render(`${this.markup} ${collection.getNoteTitle(renderer.getTargetNote())}`);
     }
 }
 
