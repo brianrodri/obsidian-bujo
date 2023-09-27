@@ -25,12 +25,19 @@ export default class ObsidianBujo extends Plugin {
             const [note, collection] = index.resolveNote(ctx.sourcePath);
             if (note && collection) {
                 const renderer = new DataviewRenderer(getAPI()!, this, el, note, collection);
-                switch (source) {
-                    case "header-view":
-                        await new HeaderView({}).apply(renderer);
+                for (const viewId of source.split("\n")) {
+                    try {
+                        switch (viewId) {
+                            case "header-view":
+                                await new HeaderView({}).apply(renderer);
+                                break;
+                            default:
+                                break;
+                        }
+                    } catch (error) {
+                        console.error(`failed to render ${viewId} for ${collection.getIdentifier()}`, error);
+                    }
                 }
-            } else {
-                console.error("oh well!");
             }
         });
     }
