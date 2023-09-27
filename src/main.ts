@@ -5,6 +5,7 @@ import { getAPI } from "obsidian-dataview";
 import { ObsidianBujoSettings } from "settings/settings";
 import { SettingsManager } from "settings/settings-manager";
 import { HeaderView } from "views/header-view";
+import { NavigationView } from "views/navigation-view";
 
 export default class ObsidianBujo extends Plugin {
     private settingsManager: SettingsManager;
@@ -17,19 +18,23 @@ export default class ObsidianBujo extends Plugin {
         );
     }
 
-    override async onload() {
-        await this.settingsManager.load();
+    override onload() {
+        // await this.settingsManager.load();
         const index = new ObsidianBujoIndex(this.settingsManager.get())!;
 
         this.registerMarkdownCodeBlockProcessor("bujo", async (source, el, ctx) => {
             const [note, collection] = index.resolveNote(ctx.sourcePath);
             if (note && collection) {
-                const renderer = new DataviewRenderer(getAPI()!, this, el, note, collection);
-                for (const viewId of source.split("\n")) {
+                const api = getAPI()!;
+                const renderer = new DataviewRenderer(api, this, el, note, collection);
+                for (const viewId of source.split(/\s+/)) {
                     try {
                         switch (viewId) {
-                            case "header-view":
+                            case "header":
                                 await new HeaderView({}).apply(renderer);
+                                break;
+                            case "navigation":
+                                await new NavigationView(api).apply(renderer);
                                 break;
                             default:
                                 break;

@@ -10,8 +10,8 @@ export class HeaderView implements IView {
     }
 
     async apply(renderer: IRenderer) {
-        const collection = renderer.getTargetCollection()!;
-        return renderer.render(`${this.markup} ${collection.getNoteTitle(renderer.getTargetNote())}`);
+        const [note, collection] = renderer.getTarget();
+        return renderer.render(`${this.markup} ${collection.getNoteTitle(note)}`);
     }
 }
 
