@@ -6,7 +6,7 @@ export class ObsidianBujoIndex {
     public readonly periodicLogs: PeriodicLog[];
 
     constructor(settings: ObsidianBujoSettings) {
-        this.periodicLogs = settings.collections.periodic.map((cfg) => new PeriodicLog(cfg));
+        this.periodicLogs = settings.collections.periodic.map(cfg => new PeriodicLog(cfg));
 
         this.validateIdentifiers();
     }
@@ -17,7 +17,7 @@ export class ObsidianBujoIndex {
 
     private validateIdentifiers() {
         const collections = this.getCollections();
-        if (new Set(collections.map((c) => c.getIdentifier())).size !== collections.length) {
+        if (new Set(collections.map(c => c.getIdentifier())).size !== collections.length) {
             throw new Error("All identifiers must be unique");
         }
     }

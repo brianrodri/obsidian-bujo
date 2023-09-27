@@ -9,7 +9,7 @@ export default class ObsidianBujo extends Plugin {
         super(app, manifest);
         this.settingsManager = new SettingsManager(
             () => this.loadSettings(),
-            (data) => this.saveSettings(data),
+            data => this.saveSettings(data),
         );
     }
 

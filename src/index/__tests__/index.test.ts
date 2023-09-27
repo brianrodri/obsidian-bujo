@@ -19,7 +19,7 @@ describe("ObsidianBujoIndex", () => {
             const validIndexProvider = () =>
                 new ObsidianBujoIndex({
                     collections: {
-                        periodic: "a b c".split(" ").map((id) => getPeriodicLog({ id })),
+                        periodic: "a b c".split(" ").map(id => getPeriodicLog({ id })),
                     },
                 });
 
@@ -30,7 +30,7 @@ describe("ObsidianBujoIndex", () => {
             const validIndexProvider = () =>
                 new ObsidianBujoIndex({
                     collections: {
-                        periodic: "a b a".split(" ").map((id) => getPeriodicLog({ id })),
+                        periodic: "a b a".split(" ").map(id => getPeriodicLog({ id })),
                     },
                 });
 
