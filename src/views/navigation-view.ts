@@ -8,17 +8,21 @@ export class NavigationView implements IView {
     async apply(renderer: IRenderer): Promise<void> {
         const [note, collection] = renderer.getTarget();
         const pages = this.api.pages(collection.getDataViewSource()) as DataArray<SMarkdownPage>;
-        pages.sortInPlace(page => collection.getNoteInterval(page.file.name)?.toISO());
+        pages.sortInPlace(page => collection.getNoteInterval(page.file.name)?.toISO() ?? page.file.name);
+
+        const getLink = (index: number) => {
+            const page = pages[index] as SMarkdownPage;
+            return page.file.link.markdown();
+        };
 
         const i = pages.findIndex(page => page.file.name === note);
-        const curr = i !== -1 ? pages.array()[i].file.name : "";
-        const prev = i > 0 ? `${pages.array()[i - 1].file.link.markdown()} ← ` : "";
-        const next = i < pages.length - 1 ? ` → ${pages.array()[i + 1].file.link.markdown()}` : "";
+        const prev = i > 0 ? `${getLink(i - 1)} ← ` : "";
+        const next = i < pages.length - 1 ? ` → ${getLink(i + 1)}` : "";
 
         if (prev || next) {
-            await renderer.render(`${prev}${curr}${next}`);
+            await renderer.render(`${prev}${note}${next}`);
         } else {
-            await renderer.render(curr);
+            await renderer.render(note);
         }
     }
 }
