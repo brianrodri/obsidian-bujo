@@ -19,9 +19,9 @@ const BASE_CONFIG = {
     input: "src/main.ts",
     external: ["obsidian", "@codemirror/view", "@codemirror/state", "@codemirror/language"],
     onwarn: (warning, warn) => {
-        // TODO(moment/luxon#193): Luxon's circular dependency won't be fixed any time soon.
         if (warning.code === "CIRCULAR_DEPENDENCY") {
             if (warning.cycle.every(id => id.startsWith(`node_modules${sep}luxon${sep}`))) {
+                // TODO(moment/luxon#193): Luxon's circular dependency won't be fixed any time soon.
                 return;
             }
         }
