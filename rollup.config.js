@@ -5,6 +5,7 @@ const nodeResolve = require("@rollup/plugin-node-resolve");
 const copy = require("rollup-plugin-copy");
 const typescript2 = require("rollup-plugin-typescript2");
 const webWorker = require("rollup-plugin-web-worker-loader");
+const { sep } = require("path");
 
 const DEFAULT_PLUGINS = [
     typescript2(),
@@ -17,6 +18,15 @@ const DEFAULT_PLUGINS = [
 const BASE_CONFIG = {
     input: "src/main.ts",
     external: ["obsidian", "@codemirror/view", "@codemirror/state", "@codemirror/language"],
+    onwarn: (warning, warn) => {
+        // TODO(moment/luxon#193): Luxon's circular dependency won't be fixed any time soon.
+        if (warning.code === "CIRCULAR_DEPENDENCY") {
+            if (warning.cycle.every(id => id.startsWith(`node_modules${sep}luxon${sep}`))) {
+                return;
+            }
+        }
+        warn(warning);
+    },
 };
 
 const DEVO_PLUGIN_CONFIG = {
