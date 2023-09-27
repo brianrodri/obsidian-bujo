@@ -72,7 +72,7 @@ describe("PeriodicLog", () => {
             ["Logs/Months", "yyyy-MM-dd"],
             ["Logs/Days", "yyyy-MM-dd"],
         ])('rejects invalid path: "%s/%s"', (folder: string, format: string) => {
-            const fileName = DateTime.fromISO("2023-09-26").toFormat(format);
+            const fileName = DateTime.fromISO("2023-09-26").toFormat(format) + ".md";
             expect(log.resolveNote(`${folder}/${fileName}`)).toBeUndefined();
         });
     });

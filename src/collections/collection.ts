@@ -16,7 +16,7 @@ export interface ICollection {
     getIdentifier(): string;
 
     /** Returns the name of the note if the path resolves to this collection. Otherwise returns undefined. */
-    resolveNote(vaultPath: string): string | undefined;
+    resolveNote(notePath: string): string | undefined;
 
     /** Returns the title of the given note. */
     getNoteTitle(note: string): string;
