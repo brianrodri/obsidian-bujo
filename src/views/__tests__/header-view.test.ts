@@ -20,7 +20,7 @@ describe("HeaderView", () => {
     it("calls renderer with the collection-configured note title", async () => {
         const spy = jest.fn<RenderFunc>();
         const renderer: IRenderer = {
-            getTargetNote: () => "folder/2023-09-26.md",
+            getTargetNote: () => "2023-09-26",
             getTargetCollection: () => periodicLog,
             render: spy,
         };
@@ -33,7 +33,7 @@ describe("HeaderView", () => {
     it("uses different header level when configured", async () => {
         const spy = jest.fn<RenderFunc>();
         const renderer: IRenderer = {
-            getTargetNote: () => "folder/2023-09-26.md",
+            getTargetNote: () => "2023-09-26",
             getTargetCollection: () => periodicLog,
             render: spy,
         };
