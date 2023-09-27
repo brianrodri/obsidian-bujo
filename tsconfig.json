@@ -6,6 +6,7 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
+        "downlevelIteration": true,
 
         // Modules
         "baseUrl": "src",
