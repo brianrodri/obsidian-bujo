@@ -2,9 +2,7 @@ import { ICollection } from "collections/collection";
 import { ReactNode } from "react";
 
 export interface IRenderer {
-    getTargetNote(): string;
-
-    getTargetCollection(): ICollection;
+    getTarget(): [string, ICollection];
 
     render(el: ReactNode): Promise<void>;
 }

@@ -13,12 +13,8 @@ export class DataviewRenderer implements IRenderer {
         private readonly collection: ICollection,
     ) {}
 
-    getTargetNote(): string {
-        return this.note;
-    }
-
-    getTargetCollection(): ICollection {
-        return this.collection;
+    getTarget(): [string, ICollection] {
+        return [this.note, this.collection];
     }
 
     async render(el: ReactNode) {
