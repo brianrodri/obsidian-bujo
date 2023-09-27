@@ -54,6 +54,29 @@ describe("PeriodicLog", () => {
         });
     });
 
+    describe(".resolveNote()", () => {
+        const log = new PeriodicLog({ ...etc, folder: "Logs/Months", fileNameFormat: "yyyy-MM" });
+
+        it("resolves path when folder is right and format is right", () => {
+            expect(log.resolveNote("Logs/Months/2023-09.md")).toEqual("2023-09");
+        });
+
+        it("resolves path when correct folder is the root directory", () => {
+            const log = new PeriodicLog({ ...etc, folder: "/", fileNameFormat: "yyyy-MM" });
+
+            expect(log.resolveNote("2023-09.md")).toEqual("2023-09");
+        });
+
+        it.each([
+            ["Logs/Days", "yyyy-MM"],
+            ["Logs/Months", "yyyy-MM-dd"],
+            ["Logs/Days", "yyyy-MM-dd"],
+        ])('rejects invalid path: "%s/%s"', (folder: string, format: string) => {
+            const fileName = DateTime.fromISO("2023-09-26").toFormat(format);
+            expect(log.resolveNote(`${folder}/${fileName}`)).toBeUndefined();
+        });
+    });
+
     describe(".getNoteTitle()", () => {
         // NOTE: These tests may fail if they're run just before midnight, but I don't care enough to fix it ;)
 

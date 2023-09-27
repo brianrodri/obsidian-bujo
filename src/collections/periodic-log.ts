@@ -28,6 +28,14 @@ export class PeriodicLog implements ICollection {
         this.nowTitleFormat = config.nowTitleFormat ?? this.titleFormat;
     }
 
+    resolveNote(vaultPath: string): string | undefined {
+        const [, vaultFolder = "/", fileName = vaultPath] = vaultPath.match(/^(.*)\/(.*)$/) ?? [];
+        if (vaultFolder === this.folder && DateTime.fromFormat(fileName, this.fileNameFormat + "'.md'").isValid) {
+            return fileName.replace(/\.md$/, "");
+        }
+        return undefined;
+    }
+
     getIdentifier(): string {
         return this.id;
     }
