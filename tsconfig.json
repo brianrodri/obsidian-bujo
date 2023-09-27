@@ -15,9 +15,8 @@
 
         // Emit
         "importHelpers": true,
-        "inlineSourceMap": true,
-        "inlineSources": true,
         "sourceMap": true,
+        "inlineSources": true,
 
         // JavaScript Support
         "allowJs": true,
