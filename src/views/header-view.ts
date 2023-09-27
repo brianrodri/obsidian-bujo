@@ -1,12 +1,5 @@
-import { ICollection } from "collections/collection";
-import { ReactNode } from "react";
 import { IView } from "views/view";
-
-export interface IRenderer {
-    getTargetNote(): string;
-    getTargetCollection(): ICollection;
-    render(el: ReactNode): Promise<void>;
-}
+import { IRenderer } from "renderers/renderer";
 
 export class HeaderView implements IView {
     public readonly markup: string;

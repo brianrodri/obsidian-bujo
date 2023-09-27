@@ -1,30 +1,10 @@
-import { ICollection } from "collections/collection";
+import { DataviewRenderer } from "renderers/dataview-renderer";
 import { ObsidianBujoIndex } from "index";
-import { App, Component, Plugin, PluginManifest } from "obsidian";
-import { DataviewApi, getAPI } from "obsidian-dataview";
-import { ReactNode } from "react";
+import { App, Plugin, PluginManifest } from "obsidian";
+import { getAPI } from "obsidian-dataview";
 import { ObsidianBujoSettings } from "settings/settings";
 import { SettingsManager } from "settings/settings-manager";
-import { HeaderView, IRenderer } from "views/header-view";
-
-class DataviewJSRenderer implements IRenderer {
-    constructor(
-        public readonly api: DataviewApi,
-        public readonly component: Component,
-        public readonly container: HTMLElement,
-        public readonly note: string,
-        public readonly collection: ICollection,
-    ) {}
-    getTargetNote(): string {
-        return this.note;
-    }
-    getTargetCollection(): ICollection {
-        return this.collection;
-    }
-    async render(el: ReactNode) {
-        await this.api.renderValue(el, this.container, this.component, this.collection.getVaultPath(this.note));
-    }
-}
+import { HeaderView } from "views/header-view";
 
 export default class ObsidianBujo extends Plugin {
     private settingsManager: SettingsManager;
@@ -44,7 +24,7 @@ export default class ObsidianBujo extends Plugin {
         this.registerMarkdownCodeBlockProcessor("bujo", async (source, el, ctx) => {
             const [note, collection] = index.resolveNote(ctx.sourcePath);
             if (note && collection) {
-                const renderer = new DataviewJSRenderer(getAPI()!, this, el, note, collection);
+                const renderer = new DataviewRenderer(getAPI()!, this, el, note, collection);
                 switch (source) {
                     case "header-view":
                         await new HeaderView({}).apply(renderer);

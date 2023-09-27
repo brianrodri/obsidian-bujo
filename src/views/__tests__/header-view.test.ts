@@ -1,6 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { PeriodicLog } from "collections/periodic-log";
-import { HeaderView, HeaderViewConfig, IRenderer } from "views/header-view";
+import { HeaderView, HeaderViewConfig } from "views/header-view";
+import { IRenderer } from "renderers/renderer";
 
 type RenderFunc = IRenderer["render"];
 
