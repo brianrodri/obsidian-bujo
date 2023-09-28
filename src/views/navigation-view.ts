@@ -1,6 +1,15 @@
+import assert from "assert";
 import { sortBy, sortedIndexBy } from "lodash";
 import { SMarkdownPage, getAPI } from "obsidian-dataview";
+import { FunctionComponent } from "react";
 import { ViewContext } from "views/view-context";
+
+export type NavigationViewProps = {
+    format?: string;
+    nowFormat?: string;
+    nextFormat?: string;
+    prevFormat?: string;
+};
 
 /**
  * Gives notes a breadcrumb-like bar for navigating their collection:
@@ -18,8 +27,9 @@ import { ViewContext } from "views/view-context";
  * Otherwise, notes will link to ther next/previous sibling in lexicographical order.
  * The first and final notes will link to each other.
  */
-export function NavigationView({ note, collection }: NavigationViewProps & ViewContext) {
-    const api = getAPI()!;
+export const NavigationView: FunctionComponent<NavigationViewProps & ViewContext> = ({ note, collection }) => {
+    const api = getAPI();
+    assert(api);
 
     const pages = api.pages(collection.getDataViewSource());
     if (pages.length < 2) {
@@ -37,9 +47,7 @@ export function NavigationView({ note, collection }: NavigationViewProps & ViewC
     const prevLink = PrevLink({ page: sortedPages[prevOrFinalIndex], toFinal: sortedIndex < prevOrFinalIndex });
 
     return `${prevLink}${note}${nextLink}`;
-}
-
-export type NavigationViewProps = NonNullable<unknown>;
+};
 
 /** Renders a pretty link to the next/first note. */
 const NextLink = ({ page, toFirst }: { page: SMarkdownPage; toFirst: boolean }) => {

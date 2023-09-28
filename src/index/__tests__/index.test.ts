@@ -2,19 +2,17 @@ import { ObsidianBujoIndex } from "index/index";
 import { describe, it, expect } from "@jest/globals";
 import { PeriodicLog, PeriodicLogConfig } from "collections/periodic-log";
 
-function newPeriodicIndex(...periodic: PeriodicLogConfig[]) {
-    return new ObsidianBujoIndex({ collections: { periodic } });
-}
-
-const withConfig = (id: string, folder: string): PeriodicLogConfig => ({
-    fileNameFormat: "yyyy-MM-dd",
-    titleFormat: "MMMM d, yyyy",
-    period: "P1D",
-    folder,
-    id,
-});
-
 describe("ObsidianBujoIndex", () => {
+    const newPeriodicIndex = (...periodic: PeriodicLogConfig[]) => new ObsidianBujoIndex({ periodic });
+
+    const withConfig = (id: string, folder: string): PeriodicLogConfig => ({
+        id,
+        folder,
+        fileNameFormat: "yyyy-MM-dd",
+        titleFormat: "MMMM d, yyyy",
+        period: "P1D",
+    });
+
     describe("Validation", () => {
         it("accepts collections with unique ids and unique folders", () => {
             expect(() =>

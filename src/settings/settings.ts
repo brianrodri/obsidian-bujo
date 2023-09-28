@@ -1,12 +1,12 @@
 import { PeriodicLogConfig } from "collections/periodic-log";
 
 export type ObsidianBujoSettings = {
-    collections: {
-        periodic: PeriodicLogConfig[];
-    };
+    keyword: string;
+    collections: { periodic: PeriodicLogConfig[] };
 };
 
 export const DEFAULT_SETTINGS: ObsidianBujoSettings = {
+    keyword: "bujo",
     collections: {
         periodic: [
             {

@@ -1,3 +1,4 @@
+import assert from "assert";
 import { Component } from "obsidian";
 import { DataviewApi, getAPI } from "obsidian-dataview";
 import { ReactNode } from "react";
@@ -11,7 +12,9 @@ export class DataviewRenderer implements IRenderer {
         private readonly container: HTMLElement,
         private readonly sourcePath: string,
     ) {
-        this.api = getAPI()!;
+        const api = getAPI();
+        assert(api);
+        this.api = api;
     }
 
     async render(el: ReactNode) {

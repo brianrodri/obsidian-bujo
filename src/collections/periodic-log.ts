@@ -1,5 +1,6 @@
 import { DateTime, Duration, Interval } from "luxon";
 import { ICollection } from "collections/collection";
+import assert from "assert";
 
 export class PeriodicLog implements ICollection {
     // User-defined identifier
@@ -44,7 +45,9 @@ export class PeriodicLog implements ICollection {
      * Pre-condition: note can be resolved via @link resolveNote
      */
     getSortKey(note: string): string {
-        return DateTime.fromFormat(note, this.fileNameFormat).toISO()!;
+        const key = DateTime.fromFormat(note, this.fileNameFormat).toISO();
+        assert(key);
+        return key;
     }
 
     getVaultPath(note: string): string {
@@ -53,7 +56,8 @@ export class PeriodicLog implements ICollection {
 
     getNoteTitle(note: string): string {
         const interval = this.getNoteInterval(note);
-        return interval.start!.toFormat(interval.contains(DateTime.now()) ? this.nowTitleFormat : this.titleFormat);
+        assert(interval.start);
+        return interval.start.toFormat(interval.contains(DateTime.now()) ? this.nowTitleFormat : this.titleFormat);
     }
 
     getNoteInterval(note: string): Interval {

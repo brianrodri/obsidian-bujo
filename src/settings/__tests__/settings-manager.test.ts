@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { DEFAULT_SETTINGS, ObsidianBujoSettings } from "settings/settings";
-import { SettingsManager } from "settings/settings-manager";
+import { SettingsLoader } from "settings/settings-manager";
 
 const CUSTOM_SETTINGS: ObsidianBujoSettings = {
+    keyword: "bujo",
     collections: {
         periodic: [
             {
@@ -30,7 +31,7 @@ describe("SettingsManager", () => {
     });
 
     it("starts with default settings", () => {
-        const settingsManager = new SettingsManager(providerMock, consumerMock);
+        const settingsManager = new SettingsLoader(providerMock, consumerMock);
 
         expect(settingsManager.get()).toEqual(DEFAULT_SETTINGS);
         expect(providerMock).not.toHaveBeenCalled();
@@ -40,7 +41,7 @@ describe("SettingsManager", () => {
     it("loads with provider", async () => {
         providerMock.mockResolvedValue(CUSTOM_SETTINGS);
 
-        const settingsManager = new SettingsManager(providerMock, consumerMock);
+        const settingsManager = new SettingsLoader(providerMock, consumerMock);
         await settingsManager.load();
 
         expect(settingsManager.get()).toEqual(CUSTOM_SETTINGS);
@@ -48,14 +49,14 @@ describe("SettingsManager", () => {
     });
 
     it("saves with consumer", async () => {
-        const settingsManager = new SettingsManager(providerMock, consumerMock);
+        const settingsManager = new SettingsLoader(providerMock, consumerMock);
         await settingsManager.save();
 
         expect(consumerMock).toHaveBeenCalledWith(settingsManager.get());
     });
 
     it("updates using deep clone", () => {
-        const settingsManager = new SettingsManager(providerMock, consumerMock);
+        const settingsManager = new SettingsLoader(providerMock, consumerMock);
         settingsManager.update(CUSTOM_SETTINGS);
 
         expect(settingsManager.get()).toEqual(CUSTOM_SETTINGS);

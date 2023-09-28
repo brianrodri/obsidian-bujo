@@ -1,7 +1,7 @@
 import structuredClone from "@ungap/structured-clone";
 import { DEFAULT_SETTINGS, ObsidianBujoSettings } from "./settings";
 
-export class SettingsManager {
+export class SettingsLoader {
     private settings: ObsidianBujoSettings = DEFAULT_SETTINGS;
 
     constructor(
@@ -18,7 +18,7 @@ export class SettingsManager {
     }
 
     async load() {
-        this.settings = structuredClone({ ...DEFAULT_SETTINGS, ...(await this.provider()) });
+        return (this.settings = structuredClone({ ...DEFAULT_SETTINGS, ...(await this.provider()) }));
     }
 
     async save() {

@@ -8,8 +8,8 @@ type CollectionWithFolder = ICollection & { folder: string };
 export class ObsidianBujoIndex {
     public readonly collections: ReadonlyMap<string, ICollection>;
 
-    constructor(settings: ObsidianBujoSettings) {
-        const periodicLogs: PeriodicLog[] = settings.collections.periodic.map(cfg => new PeriodicLog(cfg));
+    constructor(configs: ObsidianBujoSettings["collections"]) {
+        const periodicLogs: PeriodicLog[] = configs.periodic.map(cfg => new PeriodicLog(cfg));
         this.validateFolders(...periodicLogs);
 
         const collections: ICollection[] = [...periodicLogs];
