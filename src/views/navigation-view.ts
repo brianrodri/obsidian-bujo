@@ -20,22 +20,21 @@ import { ViewContext } from "views/view-context";
  */
 export function NavigationView({ note, collection }: NavigationViewProps & ViewContext) {
     const api = getAPI()!;
-    const page = api.page(collection.getVaultPath(note));
-    const pages = api.pages(collection.getDataViewSource());
 
+    const pages = api.pages(collection.getDataViewSource());
     if (pages.length < 2) {
         return note;
     }
 
     const bySortKey = (page: SMarkdownPage) => collection.getSortKey(page.file.name);
     const sortedPages = sortBy(pages, bySortKey) as SMarkdownPage[];
-    const noteIndex = sortedIndexBy(sortedPages, page as SMarkdownPage, bySortKey);
+    const sortedIndex = sortedIndexBy(sortedPages, api.page(collection.getVaultPath(note)) as SMarkdownPage, bySortKey);
 
-    const nextOrFirstIndex = (noteIndex + 1) % sortedPages.length;
-    const nextLink = NextLink({ page: sortedPages[nextOrFirstIndex], toFirst: noteIndex > nextOrFirstIndex });
+    const nextOrFirstIndex = (sortedIndex + 1) % pages.length;
+    const nextLink = NextLink({ page: sortedPages[nextOrFirstIndex], toFirst: sortedIndex > nextOrFirstIndex });
 
-    const prevOrLastIndex = (noteIndex - 1 + sortedPages.length) % sortedPages.length;
-    const prevLink = PrevLink({ page: sortedPages[prevOrLastIndex], toLast: noteIndex < prevOrLastIndex });
+    const prevOrFinalIndex = (sortedIndex - 1 + pages.length) % pages.length;
+    const prevLink = PrevLink({ page: sortedPages[prevOrFinalIndex], toFinal: sortedIndex < prevOrFinalIndex });
 
     return `${prevLink}${note}${nextLink}`;
 }
@@ -48,6 +47,6 @@ const NextLink = ({ page, toFirst }: { page: SMarkdownPage; toFirst: boolean }) 
 };
 
 /** Renders a pretty link to the previous/last note. */
-const PrevLink = ({ page, toLast }: { page: SMarkdownPage; toLast: boolean }) => {
-    return `${page.file.link.markdown()} ${toLast ? "↻" : "←"} `;
+const PrevLink = ({ page, toFinal }: { page: SMarkdownPage; toFinal: boolean }) => {
+    return `${page.file.link.markdown()} ${toFinal ? "↻" : "←"} `;
 };
