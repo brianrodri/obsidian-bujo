@@ -61,15 +61,15 @@ describe("ObsidianBujoIndex", () => {
         ])("resolves %j to %j", (notePath, collectionId) => {
             const index = newPeriodicIndex(withConfig("index", "/"), withConfig("hobbies", "Hobbies"));
 
-            const [note, collection] = index.resolveNote(notePath);
+            const { note, collection } = index.tryResolveContext(notePath)!;
 
-            expect([note, collection?.getIdentifier()]).toEqual(["2023-09-27", collectionId]);
+            expect([note, collection.getUserDefinedIdentifier()]).toEqual(["2023-09-27", collectionId]);
         });
 
         it('fails to resolve "2023-09-27.md" without a daily log', () => {
             const index = newPeriodicIndex({ ...withConfig("/", "index"), fileNameFormat: "yyyy-MM" });
 
-            expect(index.resolveNote("2023-09-27.md")).toEqual([null, null]);
+            expect(index.tryResolveContext("2023-09-27.md")).toBeNull();
         });
     });
 });

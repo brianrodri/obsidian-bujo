@@ -1,23 +1,20 @@
-import { ICollection } from "collections/collection";
 import { Component } from "obsidian";
-import { DataviewApi } from "obsidian-dataview";
+import { DataviewApi, getAPI } from "obsidian-dataview";
 import { ReactNode } from "react";
 import { IRenderer } from "renderers/renderer";
 
 export class DataviewRenderer implements IRenderer {
+    private readonly api: DataviewApi;
+
     constructor(
-        private readonly api: DataviewApi,
         private readonly component: Component,
         private readonly container: HTMLElement,
-        private readonly note: string,
-        private readonly collection: ICollection,
-    ) {}
-
-    getTarget(): [string, ICollection] {
-        return [this.note, this.collection];
+        private readonly sourcePath: string,
+    ) {
+        this.api = getAPI()!;
     }
 
     async render(el: ReactNode) {
-        await this.api.renderValue(el, this.container, this.component, this.collection.getVaultPath(this.note));
+        await this.api.renderValue(el, this.container, this.component, this.sourcePath);
     }
 }

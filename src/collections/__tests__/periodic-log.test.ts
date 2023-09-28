@@ -50,7 +50,7 @@ describe("PeriodicLog", () => {
         it("returns configured id", () => {
             const log = new PeriodicLog({ ...etc, id: "death-note" });
 
-            expect(log.getIdentifier()).toEqual("death-note");
+            expect(log.getUserDefinedIdentifier()).toEqual("death-note");
         });
     });
 

@@ -1,43 +1,25 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 import { PeriodicLog } from "collections/periodic-log";
-import { HeaderView, HeaderViewConfig } from "views/header-view";
-import { IRenderer } from "renderers/renderer";
-
-type RenderFunc = IRenderer["render"];
+import { HeaderView } from "views/header-view";
+import { ViewContext } from "views/view-context";
 
 describe("HeaderView", () => {
-    const periodicLog = new PeriodicLog({
-        id: "id",
-        folder: "folder",
-        fileNameFormat: "yyyy-MM-dd",
-        titleFormat: "MMMM d, yyyy",
-        period: "P1D",
-    });
-    const etc: HeaderViewConfig = {
-        headerLevel: undefined,
+    const viewContext: ViewContext = {
+        note: "2023-09-26",
+        collection: new PeriodicLog({
+            id: "id",
+            folder: "folder",
+            fileNameFormat: "yyyy-MM-dd",
+            titleFormat: "MMMM d, yyyy",
+            period: "P1D",
+        }),
     };
 
-    it("calls renderer with the collection-configured note title", async () => {
-        const spy = jest.fn<RenderFunc>();
-        const renderer: IRenderer = {
-            getTarget: () => ["2023-09-26", periodicLog],
-            render: spy,
-        };
-
-        await new HeaderView({ ...etc }).apply(renderer);
-
-        expect(spy).toHaveBeenCalledWith("# September 26, 2023");
+    it("calls renderer with the collection-configured note title", () => {
+        expect(HeaderView({ ...viewContext, note: "2023-09-26" })).toEqual("# September 26, 2023");
     });
 
-    it("uses different header level when configured", async () => {
-        const spy = jest.fn<RenderFunc>();
-        const renderer: IRenderer = {
-            getTarget: () => ["2023-09-26", periodicLog],
-            render: spy,
-        };
-
-        await new HeaderView({ ...etc, headerLevel: 3 }).apply(renderer);
-
-        expect(spy).toHaveBeenCalledWith("### September 26, 2023");
+    it("uses different header level when configured", () => {
+        expect(HeaderView({ ...viewContext, note: "2023-09-26", headerLevel: 3 })).toEqual("### September 26, 2023");
     });
 });

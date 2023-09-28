@@ -1,7 +1,6 @@
 import { DataviewRenderer } from "renderers/dataview-renderer";
 import { ObsidianBujoIndex } from "index";
 import { App, Plugin, PluginManifest } from "obsidian";
-import { getAPI } from "obsidian-dataview";
 import { ObsidianBujoSettings } from "settings/settings";
 import { SettingsManager } from "settings/settings-manager";
 import { HeaderView } from "views/header-view";
@@ -18,30 +17,32 @@ export default class ObsidianBujo extends Plugin {
         );
     }
 
-    override onload() {
-        // await this.settingsManager.load();
+    override async onload() {
+        await this.settingsManager.load();
         const index = new ObsidianBujoIndex(this.settingsManager.get())!;
 
         this.registerMarkdownCodeBlockProcessor("bujo", async (source, el, ctx) => {
-            const [note, collection] = index.resolveNote(ctx.sourcePath);
-            if (note && collection) {
-                const api = getAPI()!;
-                const renderer = new DataviewRenderer(api, this, el, note, collection);
-                for (const viewId of source.split(/\s+/)) {
-                    try {
-                        switch (viewId) {
-                            case "header":
-                                await new HeaderView({}).apply(renderer);
-                                break;
-                            case "navigation":
-                                await new NavigationView(api).apply(renderer);
-                                break;
-                            default:
-                                break;
-                        }
-                    } catch (error) {
-                        console.error(`failed to render ${viewId} for ${collection.getIdentifier()}`, error);
+            const viewContext = index.tryResolveContext(ctx.sourcePath);
+            if (!viewContext) {
+                console.error("Trying to execute `bujo` outside of a collection");
+                return;
+            }
+            const renderer = new DataviewRenderer(this, el, ctx.sourcePath);
+            for (const viewId of source.split(/\s+/)) {
+                try {
+                    switch (viewId) {
+                        case "header":
+                            await renderer.render(HeaderView(viewContext));
+                            break;
+                        case "navigation":
+                            await renderer.render(NavigationView(viewContext));
+                            break;
+                        default:
+                            break;
                     }
+                } catch (error) {
+                    const id = viewContext.collection.getUserDefinedIdentifier();
+                    console.error(`failed to render ${viewId} for ${id}`, error);
                 }
             }
         });

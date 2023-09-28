@@ -1,20 +1,10 @@
-import { IView } from "views/view";
-import { IRenderer } from "renderers/renderer";
+import { ViewContext } from "views/view-context";
 
-export class HeaderView implements IView {
-    public readonly markup: string;
-
-    constructor(config: HeaderViewConfig) {
-        const headerLevel = Math.max(1, config.headerLevel ?? 0);
-        this.markup = "#".repeat(headerLevel);
-    }
-
-    async apply(renderer: IRenderer) {
-        const [note, collection] = renderer.getTarget();
-        return renderer.render(`${this.markup} ${collection.getNoteTitle(note)}`);
-    }
+export function HeaderView({ headerLevel, note, collection }: HeaderViewProps & ViewContext) {
+    headerLevel = Math.max(1, headerLevel ?? 0);
+    return `${"#".repeat(headerLevel)} ${collection.getNoteTitle(note)}`;
 }
 
-export type HeaderViewConfig = {
+export type HeaderViewProps = {
     headerLevel?: number;
 };

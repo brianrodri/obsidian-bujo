@@ -1,8 +1,7 @@
-import { ICollection } from "collections/collection";
 import { ReactNode } from "react";
 
-export interface IRenderer {
-    getTarget(): [string, ICollection];
+export type RenderFunction = IRenderer["render"];
 
+export interface IRenderer {
     render(el: ReactNode): Promise<void>;
 }

@@ -1,4 +1,5 @@
 "use strict";
+const { optimizeLodashImports } = require("@optimize-lodash/rollup-plugin");
 const commonjs = require("@rollup/plugin-commonjs");
 const eslint = require("@rollup/plugin-eslint");
 const nodeResolve = require("@rollup/plugin-node-resolve");
@@ -59,7 +60,7 @@ const PROD_PLUGIN_CONFIG = {
         exports: "default",
         name: "PROD",
     },
-    plugins: DEFAULT_PLUGINS,
+    plugins: [...DEFAULT_PLUGINS, optimizeLodashImports()],
 };
 
 export default [process.env.BUILD === "PROD" ? PROD_PLUGIN_CONFIG : DEVO_PLUGIN_CONFIG];

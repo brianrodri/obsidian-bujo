@@ -1,4 +1,3 @@
 ```bujo
-header
 navigation
 ```

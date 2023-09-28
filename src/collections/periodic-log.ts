@@ -9,7 +9,7 @@ export class PeriodicLog implements ICollection {
     public readonly folder: string;
     public readonly fileNameFormat: string;
 
-    // Format config
+    // Format config -- TODO: Move this into the HeaderView config.
     public readonly titleFormat: string;
     public readonly nowTitleFormat: string;
 
@@ -36,8 +36,15 @@ export class PeriodicLog implements ICollection {
         return undefined;
     }
 
-    getIdentifier(): string {
+    getUserDefinedIdentifier(): string {
         return this.id;
+    }
+
+    /** @inheritdoc
+     * Pre-condition: note can be resolved via @link resolveNote
+     */
+    getSortKey(note: string): string {
+        return DateTime.fromFormat(note, this.fileNameFormat).toISO()!;
     }
 
     getVaultPath(note: string): string {
