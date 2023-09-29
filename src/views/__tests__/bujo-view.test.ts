@@ -1,9 +1,8 @@
 import { afterAll, afterEach, describe, expect, it, jest } from "@jest/globals";
-import { AssertionError } from "assert";
 import { ICollection } from "collections/collection";
-import { View, ViewID } from "views";
 import { HeaderView } from "views/header-view";
 import { NavigationView } from "views/navigation-view";
+import { ObsidianBujoView } from "views/bujo-view";
 
 jest.mock("views/header-view", () => ({ HeaderView: jest.fn() }));
 jest.mock("views/navigation-view", () => ({ NavigationView: jest.fn() }));
@@ -14,21 +13,27 @@ const mockNavigationView = NavigationView as jest.MockedFunction<typeof Navigati
 afterEach(() => [mockHeaderView, mockNavigationView].forEach(mock => mock.mockClear()));
 afterAll(() => [mockHeaderView, mockNavigationView].forEach(mock => mock.mockRestore()));
 
-describe("View", () => {
+const ERROR_OUTPUT_PATTERN = /^> \[!error\] .*$/;
+
+describe("BujoView", () => {
     const mockCollection = {} as ICollection;
 
     it.each([
         ["header" as const, mockHeaderView],
         ["navigation" as const, mockNavigationView],
-    ])("resolves a header", (id, expectedMock) => {
-        View({ id, note: "2023-09-28", collection: mockCollection });
-
-        expect(expectedMock).toHaveBeenCalled();
+    ])("renders view", (source, mockView) => {
+        mockView.mockReturnValue("foo");
+        expect(ObsidianBujoView({ source, note: "2023-09-28", collection: mockCollection })).toEqual("foo");
+        expect(mockView).toHaveBeenCalled();
     });
 
-    it("rejects invalid id", () => {
-        expect(() => View({ id: "💀" as ViewID, note: "2023-09-28", collection: mockCollection })).toThrowError(
-            AssertionError,
+    it.each([null, undefined, ""] as string[])("renders nothing when source=%j", source => {
+        expect(ObsidianBujoView({ source, note: "2023-09-28", collection: mockCollection })).toEqual("");
+    });
+
+    it("renders error for invalid ID", () => {
+        expect(ObsidianBujoView({ source: "???", note: "2023-09-28", collection: mockCollection })).toMatch(
+            ERROR_OUTPUT_PATTERN,
         );
     });
 });
