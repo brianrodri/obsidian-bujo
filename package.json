@@ -17,13 +17,11 @@
         "build": "BUILD=PROD rollup --config rollup.config.js",
         "watch": "jest --coverage --watchAll",
         "version": "node version-bump.mjs && git add manifest.json versions.json",
-        "lint": "eslint --fix .",
-        "format": "prettier --cache --write .",
+        "lint": "eslint --config eslint.build.config.js --fix .",
         "generate-docs": "typedoc"
     },
     "lint-staged": {
-        "**/*": "eslint --max-warnings=0 ",
-        "**/*": "prettier --cache --write "
+        "**/*": "eslint --config eslint.build.config.js --fix "
     },
     "dependencies": {
         "lodash": "latest",
@@ -38,7 +36,6 @@
         "@jest/globals": "latest",
         "@optimize-lodash/rollup-plugin": "latest",
         "@rollup/plugin-commonjs": "latest",
-        "@rollup/plugin-eslint": "latest",
         "@rollup/plugin-node-resolve": "latest",
         "@rollup/plugin-typescript": "latest",
         "@types/eslint": "latest",

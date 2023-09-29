@@ -14,18 +14,14 @@ export type NavigationViewProps = {
 /**
  * Gives notes a breadcrumb-like bar for navigating their collection:
  *
- * ```markdown
- * [[2023-09-26]] ← 2023-09-27 → [[2023-10-02]]
- * ```
- *
- * Usage:
- *     ```bujo
- *     navigation
- *     ```
- *
  * Notes with dates, like daily notes, link to their "nearest" date.
  * Otherwise, notes will link to ther next/previous sibling in lexicographical order.
  * The first and final notes will link to each other.
+ *
+ * @example
+ * ```markdown
+ * [[2023-09-26]] ← 2023-09-27 → [[2023-10-02]]
+ * ```
  */
 export const NavigationView: FunctionComponent<NavigationViewProps & ViewContext> = ({ note, collection }) => {
     const api = getAPI();

@@ -41,9 +41,6 @@ export class PeriodicLog implements ICollection {
         return this.id;
     }
 
-    /** @inheritdoc
-     * Pre-condition: note can be resolved via @link resolveNote
-     */
     getSortKey(note: string): string {
         const key = DateTime.fromFormat(note, this.fileNameFormat).toISO();
         assert(key);

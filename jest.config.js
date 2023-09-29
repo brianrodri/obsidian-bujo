@@ -1,6 +1,4 @@
-import structuredClone from "@ungap/structured-clone";
-
-/** @type {import("jest").Config} */
+/** @type { import("jest").Config } */
 export default {
     preset: "ts-jest",
     coverageThreshold: {
@@ -11,10 +9,8 @@ export default {
             functions: 100,
         },
     },
-    collectCoverageFrom: ["src/**/*.ts", "!src/main.ts"],
+    collectCoverageFrom: ["src/**/*.ts"],
+    coveragePathIgnorePatterns: ["src/main.ts"],
     testEnvironment: "jsdom",
     moduleDirectories: ["node_modules", "src"],
-    globals: {
-        structuredClone: structuredClone,
-    },
 };

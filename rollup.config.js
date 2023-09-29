@@ -1,75 +1,68 @@
-"use strict";
-const { optimizeLodashImports } = require("@optimize-lodash/rollup-plugin");
-const commonjs = require("@rollup/plugin-commonjs");
-const eslint = require("@rollup/plugin-eslint");
-const nodeResolve = require("@rollup/plugin-node-resolve");
-const copy = require("rollup-plugin-copy");
-const typescript2 = require("rollup-plugin-typescript2");
-const webWorker = require("rollup-plugin-web-worker-loader");
-const { sep } = require("path");
+const { optimizeLodashImports: optimizeLodashImportsPlugin } = require("@optimize-lodash/rollup-plugin");
+const commonjsPlugin = require("@rollup/plugin-commonjs");
+const nodeResolvePlugin = require("@rollup/plugin-node-resolve");
+const copyPlugin = require("rollup-plugin-copy");
+const typescriptPlugin = require("rollup-plugin-typescript2");
+const webWorkerPlugin = require("rollup-plugin-web-worker-loader");
 
-const DEFAULT_PLUGINS = [
-    typescript2(),
-    nodeResolve({ browser: true }),
-    commonjs(),
-    webWorker({ inline: true, forceInline: true, targetPlatform: "browser" }),
-    eslint(),
+/** @type { (dest: string) => import("rollup").Plugin } */
+const copyPluginForExportingObsidianMetadataTo = dest =>
+    copyPlugin({
+        targets: [
+            { src: "manifest.json", dest },
+            { src: "styles.css", dest },
+        ],
+    });
+
+/** @type { import("rollup").OutputOptions } */
+const baseOutput = {
+    sourcemap: "inline",
+    format: "cjs",
+    exports: "default",
+};
+
+/** @type { import("rollup").Plugin[] } */
+const basePlugins = [
+    typescriptPlugin(),
+    nodeResolvePlugin({ browser: true }),
+    commonjsPlugin(),
+    webWorkerPlugin({ inline: true, forceInline: true, targetPlatform: "browser" }),
 ];
 
-const BASE_CONFIG = {
+/** @type { import("rollup").RollupOptions } */
+const baseOptions = {
     input: "src/main.ts",
     external: ["obsidian", "@codemirror/view", "@codemirror/state", "@codemirror/language"],
     onwarn: (warning, warn) => {
-        if (warning.code === "CIRCULAR_DEPENDENCY") {
-            if (warning.cycle.every(id => id.startsWith(`node_modules${sep}luxon${sep}`))) {
-                // TODO(moment/luxon#193): Luxon's circular dependency won't be fixed any time soon.
-                return;
-            }
+        if (
+            warning.code === "CIRCULAR_DEPENDENCY" &&
+            warning.cycle.every(module => module.startsWith("node_modules/luxon/"))
+        ) {
+            return; // NOTE(moment/luxon#193): Luxon's circular dependency won't be fixed any time soon, so just ignore it.
         }
         warn(warning);
     },
 };
 
-const DEVO_PLUGIN_CONFIG = {
-    ...BASE_CONFIG,
+/** @type { import("rollup").RollupOptions } */
+const devoOptions = {
+    ...baseOptions,
     output: {
-        dir: "test-vault/.obsidian/plugins/obsidian-bujo",
-        sourcemap: "inline",
-        format: "cjs",
-        exports: "default",
-        name: "DEVO",
+        ...baseOutput,
+        dir: "test-vault/.obsidian/plugins/obsidian-bujo/",
     },
-    plugins: [
-        ...DEFAULT_PLUGINS,
-        copy({
-            targets: [
-                { src: "manifest.json", dest: "test-vault/.obsidian/plugins/obsidian-bujo/" },
-                { src: "styles.css", dest: "test-vault/.obsidian/plugins/obsidian-bujo/" },
-            ],
-        }),
-    ],
+    plugins: [...basePlugins, copyPluginForExportingObsidianMetadataTo("test-vault/.obsidian/plugins/obsidian-bujo/")],
 };
 
-const PROD_PLUGIN_CONFIG = {
-    ...BASE_CONFIG,
+/** @type { import("rollup").RollupOptions } */
+const prodOptions = {
+    ...baseOptions,
     output: {
+        ...baseOutput,
         dir: "dist",
-        sourcemap: "inline",
         sourcemapExcludeSources: true,
-        format: "cjs",
-        exports: "default",
-        name: "PROD",
     },
-    plugins: [
-        ...DEFAULT_PLUGINS,
-        optimizeLodashImports(),
-        copy({
-            targets: [
-                { src: "manifest.json", dest: "dist/" },
-                { src: "styles.css", dest: "dist/" },
-            ],
-        }),
-    ],
+    plugins: [...basePlugins, optimizeLodashImportsPlugin(), copyPluginForExportingObsidianMetadataTo("dist/")],
 };
 
-export default [process.env.BUILD === "PROD" ? PROD_PLUGIN_CONFIG : DEVO_PLUGIN_CONFIG];
+export default [process.env.BUILD === "PROD" ? prodOptions : devoOptions];
