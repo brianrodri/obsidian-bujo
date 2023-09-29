@@ -1,4 +1,3 @@
-import structuredClone from "@ungap/structured-clone";
 import { DEFAULT_SETTINGS, ObsidianBujoSettings } from "./settings";
 
 export class SettingsLoader {

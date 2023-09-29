@@ -53,14 +53,23 @@ const DEVO_PLUGIN_CONFIG = {
 const PROD_PLUGIN_CONFIG = {
     ...BASE_CONFIG,
     output: {
-        dir: "build",
+        dir: "dist",
         sourcemap: "inline",
         sourcemapExcludeSources: true,
         format: "cjs",
         exports: "default",
         name: "PROD",
     },
-    plugins: [...DEFAULT_PLUGINS, optimizeLodashImports()],
+    plugins: [
+        ...DEFAULT_PLUGINS,
+        optimizeLodashImports(),
+        copy({
+            targets: [
+                { src: "manifest.json", dest: "dist/" },
+                { src: "styles.css", dest: "dist/" },
+            ],
+        }),
+    ],
 };
 
 export default [process.env.BUILD === "PROD" ? PROD_PLUGIN_CONFIG : DEVO_PLUGIN_CONFIG];

@@ -1,6 +1,7 @@
 import { ObsidianBujoIndex } from "index/index";
 import { describe, it, expect } from "@jest/globals";
 import { PeriodicLog, PeriodicLogConfig } from "collections/periodic-log";
+import assert from "assert";
 
 describe("ObsidianBujoIndex", () => {
     const newPeriodicIndex = (...periodic: PeriodicLogConfig[]) => new ObsidianBujoIndex({ periodic });
@@ -59,7 +60,9 @@ describe("ObsidianBujoIndex", () => {
         ])("resolves %j to %j", (notePath, collectionId) => {
             const index = newPeriodicIndex(withConfig("index", "/"), withConfig("hobbies", "Hobbies"));
 
-            const { note, collection } = index.tryResolveContext(notePath)!;
+            const ctx = index.tryResolveContext(notePath);
+            assert(ctx);
+            const { note, collection } = ctx;
 
             expect([note, collection.getUserDefinedIdentifier()]).toEqual(["2023-09-27", collectionId]);
         });

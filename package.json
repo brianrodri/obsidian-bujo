@@ -8,7 +8,8 @@
         "obsidian",
         "bullet journal"
     ],
-    "main": "main.js",
+    "main": "dist/main.js",
+    "type": "module",
     "scripts": {
         "prepare": "husky install",
         "test": "jest --coverage",
@@ -16,13 +17,13 @@
         "build": "BUILD=PROD rollup --config rollup.config.js",
         "watch": "jest --coverage --watchAll",
         "version": "node version-bump.mjs && git add manifest.json versions.json",
-        "lint": "eslint --fix --max-warnings=0",
-        "format": "prettier --cache --write",
+        "lint": "eslint --fix .",
+        "format": "prettier --cache --write .",
         "generate-docs": "typedoc"
     },
     "lint-staged": {
-        "**/*": "npm run lint -- ",
-        "**/*": "npm run format -- "
+        "**/*": "eslint --max-warnings=0 ",
+        "**/*": "prettier --cache --write "
     },
     "dependencies": {
         "lodash": "latest",
@@ -32,12 +33,15 @@
         "react-dom": "latest"
     },
     "devDependencies": {
+        "@eslint/eslintrc": "latest",
+        "@eslint/js": "latest",
         "@jest/globals": "latest",
         "@optimize-lodash/rollup-plugin": "latest",
         "@rollup/plugin-commonjs": "latest",
         "@rollup/plugin-eslint": "latest",
         "@rollup/plugin-node-resolve": "latest",
         "@rollup/plugin-typescript": "latest",
+        "@types/eslint": "latest",
         "@types/lodash": "latest",
         "@types/luxon": "latest",
         "@types/node": "latest",
@@ -51,7 +55,9 @@
         "builtin-modules": "latest",
         "eslint": "latest",
         "eslint-config-prettier": "latest",
+        "eslint-import-resolver-typescript": "latest",
         "eslint-plugin-import": "latest",
+        "eslint-plugin-prettier": "latest",
         "eslint-plugin-tsdoc": "latest",
         "husky": "latest",
         "jest": "latest",
