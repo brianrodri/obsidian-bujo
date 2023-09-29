@@ -7,7 +7,7 @@ import tsdocPlugin from "eslint-plugin-tsdoc";
 import globals from "globals";
 
 /** @type { import("eslint").Linter.FlatConfig } */
-const GLOBAL_IGNORE = { ignores: ["test-vault/", "dist/"] };
+const GLOBAL_IGNORE = { ignores: ["test-vault/", "dist/", "docs/"] };
 
 /** Exported to enable "eslint.build.config.js" to match the correct TypeScript files. */
 export const TYPESCRIPT_GLOB = "**/*.{,c,m}ts{,x}";
