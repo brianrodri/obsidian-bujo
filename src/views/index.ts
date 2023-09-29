@@ -1,4 +1,4 @@
-import assert from "assert";
+import assert, { AssertionError } from "assert";
 import { isFunction } from "lodash";
 import { FunctionComponent } from "react";
 import { EnforceKeys } from "utils/type-utils";
@@ -20,6 +20,7 @@ type ViewPropsRegistry = EnforceKeys<
 >;
 
 export type ViewID = keyof typeof VIEW_REGISTRY;
+
 export type ViewProps<ID extends ViewID> = ViewPropsRegistry[ID];
 
 export function View<ID extends ViewID>({ id, ...props }: { id: string } & ViewContext & ViewProps<ID>) {
@@ -30,5 +31,13 @@ export function View<ID extends ViewID>({ id, ...props }: { id: string } & ViewC
 }
 
 export function assertIsViewID(id: string): asserts id is ViewID {
-    assert(id in VIEW_REGISTRY);
+    if (id in VIEW_REGISTRY) {
+        return;
+    }
+    throw new AssertionError({
+        message: `id=${id} must be from VIEW_REGISTRY=${Object.keys(VIEW_REGISTRY)}`,
+        actual: id,
+        expected: Object.keys(VIEW_REGISTRY),
+        operator: "in",
+    });
 }

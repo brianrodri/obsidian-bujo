@@ -18,12 +18,12 @@ export class ObsidianBujoIndex {
         this.collections = new Map(collections.map(collection => [collection.getUserDefinedIdentifier(), collection]));
     }
 
-    tryResolveContext(notePath: string): ViewContext | null {
+    resolveContext(notePath: string): ViewContext {
         for (const collection of this.collections.values()) {
             const note = collection.resolveNote(notePath);
             if (note) return { note, collection };
         }
-        return null;
+        throw new Error("Failed to resolve a collection from: " + notePath);
     }
 
     getCollections(): ICollection[] {
