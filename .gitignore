@@ -26,7 +26,7 @@ docs/
 # Exclude build artifacts
 dist/
 
-# Ignore (most of) the test vault
+# Exclude (most of) the test vault
 test-vault/.obsidian/*
 !test-vault/.obsidian/community-plugins.json
 !test-vault/.obsidian/plugins/

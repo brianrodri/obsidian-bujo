@@ -1,12 +1,12 @@
 {
     "compilerOptions": {
         // Type Checking
+        "downlevelIteration": true,
         "noImplicitAny": true,
         "noImplicitOverride": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
-        "downlevelIteration": true,
 
         // Modules
         "baseUrl": "src",
@@ -15,8 +15,8 @@
 
         // Emit
         "importHelpers": true,
-        "sourceMap": true,
         "inlineSources": true,
+        "sourceMap": true,
 
         // JavaScript Support
         "allowJs": true,

@@ -8,31 +8,23 @@ import globals from "globals";
 
 /** @type { import("eslint").Linter.FlatConfig } */
 const GLOBAL_IGNORE = { ignores: ["test-vault/", "dist/", "docs/"] };
+const JAVASCRIPT_GLOB = "**/*.{,c,m}js{,x}";
 
-/** Exported to enable "eslint.build.config.js" to match the correct TypeScript files. */
+/** Exported so that "eslint.build.config.js" uses the same targets. */
 export const TYPESCRIPT_GLOB = "**/*.{,c,m}ts{,x}";
-
-export const JAVASCRIPT_GLOB = "**/*.{,c,m}js{,x}";
 
 /** @type { import("eslint").Linter.FlatConfig } */
 const globalsConfig = {
     files: [TYPESCRIPT_GLOB, JAVASCRIPT_GLOB],
     languageOptions: {
-        globals: {
-            ...globals.browser,
-            ...globals.es5,
-            ...globals.node,
-        },
+        globals: { ...globals.browser, ...globals.es5, ...globals.node },
     },
 };
 
 /** @type { import("eslint").Linter.FlatConfig } */
 const prettierPluginConfig = {
     plugins: { prettier: prettierPlugin },
-    rules: {
-        ...prettierConfig.rules,
-        "prettier/prettier": "error",
-    },
+    rules: { ...prettierConfig.rules, "prettier/prettier": "error" },
 };
 
 /**

@@ -1,19 +1,18 @@
 const commonjsPlugin = require("@rollup/plugin-commonjs");
 const nodeResolvePlugin = require("@rollup/plugin-node-resolve");
-const typescriptPlugin = require("rollup-plugin-typescript2");
-const webWorkerPlugin = require("rollup-plugin-web-worker-loader");
-
-/** @type { import("rollup").Plugin[] } */
-const basePlugins = [
-    typescriptPlugin(),
-    nodeResolvePlugin({ browser: true }),
-    commonjsPlugin(),
-    webWorkerPlugin({ inline: true, forceInline: true, targetPlatform: "browser" }),
-];
+const typescript2Plugin = require("rollup-plugin-typescript2");
+const webWorkerLoaderPlugin = require("rollup-plugin-web-worker-loader");
 
 export default {
     input: "src/main.ts",
+    output: { sourcemap: "inline", format: "cjs", exports: "default" },
     external: ["obsidian", "@codemirror/view", "@codemirror/state", "@codemirror/language"],
+    plugins: [
+        commonjsPlugin(),
+        nodeResolvePlugin({ browser: true }),
+        typescript2Plugin(),
+        webWorkerLoaderPlugin({ inline: true, forceInline: true, targetPlatform: "browser" }),
+    ],
     onwarn: (warning, warn) => {
         if (
             warning.code === "CIRCULAR_DEPENDENCY" &&
@@ -23,10 +22,4 @@ export default {
         }
         warn(warning);
     },
-    output: {
-        sourcemap: "inline",
-        format: "cjs",
-        exports: "default",
-    },
-    plugins: [...basePlugins],
 };
