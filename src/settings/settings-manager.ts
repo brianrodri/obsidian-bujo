@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash";
 import { DEFAULT_SETTINGS, ObsidianBujoSettings } from "./settings";
 
 export class SettingsLoader {
@@ -13,11 +14,11 @@ export class SettingsLoader {
     }
 
     update(partial: Partial<ObsidianBujoSettings>) {
-        this.settings = structuredClone({ ...this.settings, ...partial });
+        this.settings = cloneDeep({ ...this.settings, ...partial });
     }
 
     async load() {
-        return (this.settings = structuredClone({ ...DEFAULT_SETTINGS, ...(await this.provider()) }));
+        return (this.settings = cloneDeep({ ...DEFAULT_SETTINGS, ...(await this.provider()) }));
     }
 
     async save() {
