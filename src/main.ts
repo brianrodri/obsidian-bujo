@@ -2,14 +2,15 @@ import assert from "assert";
 import { ObsidianBujoIndex } from "index";
 import { Plugin } from "obsidian";
 import { DataviewRenderer } from "renderers/dataview-renderer";
-import { ObsidianBujoSettings } from "settings/settings";
-import { SettingsLoader } from "settings/settings-manager";
+import { DEFAULT_SETTINGS, ObsidianBujoSettings } from "settings/settings";
+import { Resolver } from "utils/resolver";
 import { View } from "views";
 
 export default class ObsidianBujo extends Plugin {
-    private readonly loader = new SettingsLoader(
-        () => this.loadData() as Promise<ObsidianBujoSettings>,
-        (data: ObsidianBujoSettings) => this.saveData(data),
+    private readonly loader = new Resolver<ObsidianBujoSettings>(
+        () => this.loadData(),
+        data => this.saveData(data),
+        DEFAULT_SETTINGS,
     );
 
     override async onload() {
