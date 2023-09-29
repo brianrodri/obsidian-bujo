@@ -1,13 +1,13 @@
 import importPlugin from "eslint-plugin-import";
-import { flatConfig, TYPESCRIPT_GLOB } from "./eslint.config.js";
+import * as baseConfig from "./eslint.config.js";
 
 /**
- * Requires `typescriptPluginConfig` from eslint.config.js.
+ * Depends on {@link baseConfig.typescriptPluginConfigs}
  *
  * @type { import("eslint").Linter.FlatConfig }
  */
 const mixinTypescriptImportPluginConfig = {
-    files: [TYPESCRIPT_GLOB],
+    files: [baseConfig.TYPESCRIPT_GLOB],
     plugins: { import: importPlugin },
     settings: {
         ...importPlugin.configs.typescript.settings,
@@ -20,12 +20,12 @@ const mixinTypescriptImportPluginConfig = {
         ...importPlugin.configs.recommended.rules,
         ...importPlugin.configs.typescript.rules,
         // These rules are redundant because TypeScript already reports them as errors.
+        // See: https://typescript-eslint.io/linting/troubleshooting/performance-troubleshooting/#eslint-plugin-import.
         "import/named": "off",
         "import/namespace": "off",
         "import/default": "off",
         "import/no-named-as-default-member": "off",
-        // See: https://typescript-eslint.io/linting/troubleshooting/performance-troubleshooting/#eslint-plugin-import.
     },
 };
 
-export default [...flatConfig, mixinTypescriptImportPluginConfig];
+export default [...baseConfig.default, mixinTypescriptImportPluginConfig];

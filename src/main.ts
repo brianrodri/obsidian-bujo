@@ -1,10 +1,10 @@
-import { DataviewRenderer } from "renderers/dataview-renderer";
+import assert from "assert";
 import { ObsidianBujoIndex } from "index";
 import { Plugin } from "obsidian";
+import { DataviewRenderer } from "renderers/dataview-renderer";
 import { ObsidianBujoSettings } from "settings/settings";
 import { SettingsLoader } from "settings/settings-manager";
 import { View } from "views";
-import assert from "assert";
 
 export default class ObsidianBujo extends Plugin {
     private readonly loader = new SettingsLoader(

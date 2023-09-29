@@ -1,21 +1,20 @@
-const { optimizeLodashImports: optimizeLodashImportsPlugin } = require("@optimize-lodash/rollup-plugin");
 const copyPlugin = require("rollup-plugin-copy");
 import baseConfig from "./rollup.config.base.js";
 
-const BUILD_DIR = "dist/";
+const BUILD_DIR = "test-vault/.obsidian/plugins/obsidian-bujo/";
 
 export default {
     input: baseConfig.input,
     external: baseConfig.external,
     onwarn: baseConfig.onwarn,
     output: {
-        ...baseConfig.output,
         dir: BUILD_DIR,
-        sourcemapExcludeSources: true,
+        sourcemap: "inline",
+        format: "cjs",
+        exports: "default",
     },
     plugins: [
         ...baseConfig.plugins,
-        optimizeLodashImportsPlugin(),
         copyPlugin({
             targets: [
                 { src: "manifest.json", dest: BUILD_DIR },

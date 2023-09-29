@@ -6,11 +6,16 @@ import prettierPlugin from "eslint-plugin-prettier";
 import tsdocPlugin from "eslint-plugin-tsdoc";
 import globals from "globals";
 
+/** @type { import("eslint").Linter.FlatConfig } */
+const GLOBAL_IGNORE = { ignores: ["test-vault/", "dist/"] };
+
+/** Exported to enable "eslint.build.config.js" to match the correct TypeScript files. */
 export const TYPESCRIPT_GLOB = "**/*.{,c,m}ts{,x}";
+
 export const JAVASCRIPT_GLOB = "**/*.{,c,m}js{,x}";
 
 /** @type { import("eslint").Linter.FlatConfig } */
-export const globalsConfig = {
+const globalsConfig = {
     files: [TYPESCRIPT_GLOB, JAVASCRIPT_GLOB],
     languageOptions: {
         globals: {
@@ -22,30 +27,8 @@ export const globalsConfig = {
 };
 
 /** @type { import("eslint").Linter.FlatConfig } */
-export const typescriptPluginConfig = {
-    files: [TYPESCRIPT_GLOB],
-    languageOptions: {
-        parser: typescriptPluginParser,
-        parserOptions: {
-            ecmaFeatures: { modules: true },
-            ecmaVersion: "latest",
-            project: "./tsconfig.json",
-        },
-    },
-    plugins: {
-        "@typescript-eslint": typescriptPlugin,
-    },
-    rules: {
-        ...typescriptPlugin.configs.recommended.rules,
-        ...typescriptPlugin.configs.strict.rules,
-    },
-};
-
-/** @type { import("eslint").Linter.FlatConfig } */
-export const prettierPluginConfig = {
-    plugins: {
-        prettier: prettierPlugin,
-    },
+const prettierPluginConfig = {
+    plugins: { prettier: prettierPlugin },
     rules: {
         ...prettierConfig.rules,
         "prettier/prettier": "error",
@@ -53,24 +36,34 @@ export const prettierPluginConfig = {
 };
 
 /**
- * Requires {@link typescriptPluginConfig}.
+ * Depends on: {@link globalsConfig}
+ * Exported to enable TSDoc links in "eslint.build.config.js".
  *
  * @type { import("eslint").Linter.FlatConfig }
  */
-export const mixinTsdocPluginConfig = {
-    files: [TYPESCRIPT_GLOB],
-    plugins: { tsdoc: tsdocPlugin },
-    rules: { "tsdoc/syntax": "error" },
-};
-
-/** @type { import("eslint").Linter.FlatConfig[] } */
-export const flatConfig = [
-    { ignores: ["docs/", "test-vault/"] },
-    js.configs.recommended,
-    globalsConfig,
-    typescriptPluginConfig,
-    mixinTsdocPluginConfig,
-    prettierPluginConfig,
+export const typescriptPluginConfigs = [
+    {
+        plugins: { "@typescript-eslint": typescriptPlugin },
+        files: [TYPESCRIPT_GLOB],
+        languageOptions: {
+            parser: typescriptPluginParser,
+            parserOptions: {
+                ecmaFeatures: { modules: true },
+                ecmaVersion: "latest",
+                project: "./tsconfig.json",
+            },
+        },
+        rules: {
+            ...typescriptPlugin.configs.recommended.rules,
+            ...typescriptPlugin.configs.strict.rules,
+        },
+    },
+    {
+        plugins: { tsdoc: tsdocPlugin },
+        files: [TYPESCRIPT_GLOB],
+        rules: { "tsdoc/syntax": "error" },
+    },
 ];
 
-export default flatConfig;
+/** @type { import("eslint").Linter.FlatConfig[] } */
+export default [GLOBAL_IGNORE, js.configs.recommended, globalsConfig, ...typescriptPluginConfigs, prettierPluginConfig];
