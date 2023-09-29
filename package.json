@@ -14,7 +14,7 @@
         "prepare": "husky install",
         "test": "jest --coverage",
         "watch": "jest --coverage --watchAll",
-        "build": "rollup --config rollup.config.js",
+        "build": "rollup --config rollup.config.build.js",
         "hotreload": "git submodule init && git submodule update && rollup --config rollup.config.hotreload.js -w",
         "lint": "eslint --config eslint.config.build.js --fix .",
         "typedoc": "typedoc"
