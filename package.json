@@ -16,11 +16,11 @@
         "watch": "jest --coverage --watchAll",
         "build": "rollup --config rollup.config.js",
         "hotreload": "git submodule init && git submodule update && rollup --config rollup.config.hotreload.js -w",
-        "lint": "eslint --config eslint.build.config.js --fix .",
+        "lint": "eslint --config eslint.config.build.js --fix .",
         "doc": "typedoc"
     },
     "lint-staged": {
-        "**/*": "eslint --config eslint.build.config.js --fix "
+        "**/*": "eslint --config eslint.config.build.js --fix "
     },
     "dependencies": {
         "lodash": "latest",

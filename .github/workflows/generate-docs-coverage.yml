@@ -17,7 +17,7 @@ jobs:
               run: npm install
 
             - name: Generate Documentation
-              run: npm run generate-docs
+              run: npm run typedoc
 
             - name: Upload Badge
               uses: actions/upload-artifact@v3
@@ -29,6 +29,3 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                   name: docs-coverage-badge
-
-            - name: Echo download path
-              run: ls -R
