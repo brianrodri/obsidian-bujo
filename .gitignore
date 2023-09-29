@@ -31,7 +31,6 @@ test-vault/.obsidian/*
 !test-vault/.obsidian/community-plugins.json
 !test-vault/.obsidian/plugins/
 test-vault/.obsidian/plugins/*
-!test-vault/.obsidian/plugins/dataview/
 !test-vault/.obsidian/plugins/obsidian-bujo/
 !test-vault/.obsidian/plugins/hot-reload/
 test-vault/.obsidian/plugins/obsidian-bujo/*
