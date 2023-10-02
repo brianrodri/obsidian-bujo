@@ -12,9 +12,9 @@ export type NavigationViewProps = {
 };
 
 /**
- * Gives notes "breadcrumb links" for navigating their collection:
+ * Gives notes "breadcrumb links" for navigating through their collection.
  *
- * Notes with dates, like daily notes, link to their "nearest" date.
+ * Notes with dates, like daily notes, link to their "closest" date.
  * Otherwise, notes will link to ther next/previous sibling in lexicographical order.
  * The first and final notes will link to each other.
  *
@@ -50,7 +50,7 @@ const NextLink = ({ page, toFirst }: { page: SMarkdownPage; toFirst: boolean }) 
     return ` ${toFirst ? "↺" : "→"} ${page.file.link.markdown()}`;
 };
 
-/** Renders a pretty link to the previous/last note. */
+/** Renders a pretty link to the previous/final note. */
 const PrevLink = ({ page, toFinal }: { page: SMarkdownPage; toFinal: boolean }) => {
     return `${page.file.link.markdown()} ${toFinal ? "↻" : "←"} `;
 };

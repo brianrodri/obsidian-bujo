@@ -5,7 +5,15 @@ export type HeaderViewProps = {
     headerLevel?: number;
 };
 
-export const HeaderView: FunctionComponent<HeaderViewProps & ViewContext> = ({ headerLevel, note, collection }) => {
-    headerLevel = Math.max(1, headerLevel ?? 0);
+/**
+ * Renders the note's header.
+ *
+ * @example
+ * ```markdown
+ * # October 2, 2023
+ * ```
+ */
+export const HeaderView: FunctionComponent<HeaderViewProps & ViewContext> = ({ headerLevel = 1, note, collection }) => {
+    headerLevel = Math.min(Math.max(headerLevel, 1), 6);
     return `${"#".repeat(headerLevel)} ${collection.getNoteTitle(note)}` as ReactNode;
 };

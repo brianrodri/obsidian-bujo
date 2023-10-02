@@ -22,4 +22,12 @@ describe("HeaderView", () => {
     it("uses different header level when configured", () => {
         expect(HeaderView({ ...viewContext, note: "2023-09-26", headerLevel: 3 })).toEqual("### September 26, 2023");
     });
+
+    it("ignores headerLevel lower than 1", () => {
+        expect(HeaderView({ ...viewContext, note: "2023-09-26", headerLevel: 0 })).toEqual("# September 26, 2023");
+    });
+
+    it("ignores headerLevel greater than 6", () => {
+        expect(HeaderView({ ...viewContext, note: "2023-09-26", headerLevel: 7 })).toEqual("###### September 26, 2023");
+    });
 });
