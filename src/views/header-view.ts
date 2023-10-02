@@ -1,6 +1,7 @@
 import { FunctionComponent, ReactNode } from "react";
 import { ViewContext } from "views/view-context";
 
+/** Props accepted by the {@link HeaderView}. */
 export type HeaderViewProps = {
     headerLevel?: number;
 };

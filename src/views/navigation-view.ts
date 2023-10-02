@@ -4,6 +4,7 @@ import { SMarkdownPage, getAPI } from "obsidian-dataview";
 import { FunctionComponent } from "react";
 import { ViewContext } from "views/view-context";
 
+/** Props accepted by the {@link NavigationView}. */
 export type NavigationViewProps = {
     format?: string;
     nowFormat?: string;
