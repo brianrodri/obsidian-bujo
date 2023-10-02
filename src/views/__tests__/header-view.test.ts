@@ -16,20 +16,18 @@ describe("HeaderView", () => {
     };
 
     it.each([1, 2, 3, 4, 5, 6])("uses headerLevel=%j", headerLevel => {
-        expect(HeaderView({ ...viewContext, note: "2023-09-26", headerLevel })).toEqual(
-            `${"#".repeat(headerLevel)} September 26, 2023`,
-        );
+        expect(HeaderView({ ...viewContext, headerLevel })).toEqual(`${"#".repeat(headerLevel)} September 26, 2023`);
     });
 
     it("uses headerLevel=2 by default", () => {
-        expect(HeaderView({ ...viewContext, note: "2023-09-26" })).toEqual("## September 26, 2023");
+        expect(HeaderView({ ...viewContext })).toEqual("## September 26, 2023");
     });
 
     it("uses headerLevel=1 as lower bound", () => {
-        expect(HeaderView({ ...viewContext, note: "2023-09-26", headerLevel: 0 })).toEqual("# September 26, 2023");
+        expect(HeaderView({ ...viewContext, headerLevel: 0 })).toEqual("# September 26, 2023");
     });
 
     it("uses headerLevel=6 as upper bound", () => {
-        expect(HeaderView({ ...viewContext, note: "2023-09-26", headerLevel: 7 })).toEqual("###### September 26, 2023");
+        expect(HeaderView({ ...viewContext, headerLevel: 7 })).toEqual("###### September 26, 2023");
     });
 });
