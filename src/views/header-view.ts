@@ -14,7 +14,7 @@ export type HeaderViewProps = {
  * # October 2, 2023
  * ```
  */
-export const HeaderView: FunctionComponent<HeaderViewProps & ViewContext> = ({ headerLevel = 1, note, collection }) => {
+export const HeaderView: FunctionComponent<HeaderViewProps & ViewContext> = ({ headerLevel = 2, note, collection }) => {
     headerLevel = Math.min(Math.max(headerLevel, 1), 6);
     return `${"#".repeat(headerLevel)} ${collection.getNoteTitle(note)}` as ReactNode;
 };
