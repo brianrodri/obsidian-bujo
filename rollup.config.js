@@ -4,6 +4,7 @@ import commonConfig from "./rollup.config.common.js";
 
 const BUILD_DIR = "dist/";
 
+/** @type { import("rollup").RollupOptions } */
 export default {
     ...commonConfig,
     output: { ...commonConfig.output, dir: BUILD_DIR, sourcemapExcludeSources: true },

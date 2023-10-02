@@ -3,6 +3,7 @@ const nodeResolvePlugin = require("@rollup/plugin-node-resolve");
 const typescript2Plugin = require("rollup-plugin-typescript2");
 const webWorkerLoaderPlugin = require("rollup-plugin-web-worker-loader");
 
+/** @type { import("rollup").RollupOptions } */
 export default {
     input: "src/main.ts",
     output: { sourcemap: "inline", format: "cjs", exports: "default" },

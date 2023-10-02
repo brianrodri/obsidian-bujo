@@ -3,6 +3,7 @@ import commonConfig from "./rollup.config.common.js";
 
 const BUILD_DIR = "test-vault/.obsidian/plugins/obsidian-bujo/";
 
+/** @type { import("rollup").RollupOptions } */
 export default {
     ...commonConfig,
     output: { ...commonConfig.output, dir: BUILD_DIR },

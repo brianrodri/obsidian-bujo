@@ -71,7 +71,7 @@
         "typedoc-plugin-coverage": "latest",
         "typescript": "latest"
     },
-    "//": "TODO(liamcain/obsidian-calendar-ui#20): Needed to get off of a vulnerable svelte version",
+    "//": "TODO(liamcain/obsidian-calendar-ui#20): Stuck on a vulnerable version of svelte",
     "overrides": {
         "svelte": "^3.59.2"
     }

@@ -8,10 +8,11 @@ import globals from "globals";
 
 /** @type { import("eslint").Linter.FlatConfig } */
 const GLOBAL_IGNORE = { ignores: ["test-vault/", "dist/", "docs/"] };
-const JAVASCRIPT_GLOB = "**/*.{,c,m}js{,x}";
 
-/** Exported so that "eslint.build.config.js" uses the same targets. */
+/** @exports so "eslint.build.config.js" can use the same targets. */
 export const TYPESCRIPT_GLOB = "**/*.{,c,m}ts{,x}";
+
+const JAVASCRIPT_GLOB = "**/*.{,c,m}js{,x}";
 
 /** @type { import("eslint").Linter.FlatConfig } */
 const globalsConfig = {
@@ -29,9 +30,8 @@ const prettierPluginConfig = {
 
 /**
  * Depends on: {@link globalsConfig}
- * Exported to enable TSDoc links in "eslint.build.config.js".
- *
  * @type { import("eslint").Linter.FlatConfig }
+ * @exports so TSDoc links work in "eslint.build.config.js".
  */
 export const typescriptPluginConfigs = [
     {
