@@ -43,7 +43,6 @@
         "@types/node": "latest",
         "@types/react": "latest",
         "@types/react-dom": "latest",
-        "@types/rollup": "latest",
         "@types/ungap__structured-clone": "latest",
         "@typescript-eslint/eslint-plugin": "latest",
         "@typescript-eslint/parser": "latest",
