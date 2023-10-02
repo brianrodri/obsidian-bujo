@@ -20,7 +20,7 @@
         "typedoc": "typedoc"
     },
     "lint-staged": {
-        "**/*": "eslint --config eslint.config.build.js --fix "
+        "*": "eslint --config eslint.config.build.js --fix"
     },
     "dependencies": {
         "lodash": "latest",
