@@ -12,7 +12,7 @@ export type NavigationViewProps = {
 };
 
 /**
- * Gives notes a breadcrumb-like bar for navigating their collection:
+ * Gives notes "breadcrumb links" for navigating their collection:
  *
  * Notes with dates, like daily notes, link to their "nearest" date.
  * Otherwise, notes will link to ther next/previous sibling in lexicographical order.
