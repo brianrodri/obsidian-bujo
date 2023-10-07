@@ -1,14 +1,14 @@
-import { afterAll, afterEach, describe, expect, it, jest } from "@jest/globals";
+import { MockedFunction, afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { ICollection } from "collections/collection";
 import { HeaderView } from "views/header-view";
 import { NavigationView } from "views/navigation-view";
 import { ObsidianBujoView } from "views/bujo-view";
 
-jest.mock("views/header-view", () => ({ HeaderView: jest.fn() }));
-jest.mock("views/navigation-view", () => ({ NavigationView: jest.fn() }));
+vi.mock("views/header-view", () => ({ HeaderView: vi.fn() }));
+vi.mock("views/navigation-view", () => ({ NavigationView: vi.fn() }));
 
-const mockHeaderView = HeaderView as jest.MockedFunction<typeof HeaderView>;
-const mockNavigationView = NavigationView as jest.MockedFunction<typeof NavigationView>;
+const mockHeaderView = HeaderView as MockedFunction<typeof HeaderView>;
+const mockNavigationView = NavigationView as MockedFunction<typeof NavigationView>;
 
 afterEach(() => [mockHeaderView, mockNavigationView].forEach(mock => mock.mockClear()));
 afterAll(() => [mockHeaderView, mockNavigationView].forEach(mock => mock.mockRestore()));

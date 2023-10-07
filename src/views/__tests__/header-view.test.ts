@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "vitest";
 import { PeriodicLog } from "collections/periodic-log";
 import { HeaderView } from "views/header-view";
 import { ViewContext } from "views/view-context";

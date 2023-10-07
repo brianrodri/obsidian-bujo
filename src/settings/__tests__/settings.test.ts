@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "vitest";
 import { PeriodicLog } from "collections/periodic-log";
 import { DEFAULT_SETTINGS } from "settings/settings";
 

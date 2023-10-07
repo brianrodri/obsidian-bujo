@@ -12,8 +12,8 @@
     "type": "module",
     "scripts": {
         "prepare": "husky install",
-        "test": "jest --coverage",
-        "watch": "jest --coverage --watchAll",
+        "test": "vitest --coverage",
+        "watch": "vitest --coverage --watch",
         "build": "rollup --config rollup.config.js",
         "hotreload": "git submodule init && git submodule update && rollup --config rollup.config.hotreload.js -w",
         "lint": "eslint --config eslint.config.build.js --fix .",
@@ -32,7 +32,6 @@
     "devDependencies": {
         "@eslint/eslintrc": "latest",
         "@eslint/js": "latest",
-        "@jest/globals": "latest",
         "@optimize-lodash/rollup-plugin": "latest",
         "@rollup/plugin-commonjs": "latest",
         "@rollup/plugin-node-resolve": "latest",
@@ -47,6 +46,7 @@
         "@typescript-eslint/eslint-plugin": "latest",
         "@typescript-eslint/parser": "latest",
         "@ungap/structured-clone": "latest",
+        "@vitest/coverage-v8": "^0.34.6",
         "builtin-modules": "latest",
         "eslint": "latest",
         "eslint-config-prettier": "latest",
@@ -55,8 +55,7 @@
         "eslint-plugin-prettier": "latest",
         "eslint-plugin-tsdoc": "latest",
         "husky": "latest",
-        "jest": "latest",
-        "jest-environment-jsdom": "latest",
+        "jsdom": "^22.1.0",
         "lint-staged": "latest",
         "obsidian": "latest",
         "prettier": "latest",
@@ -64,12 +63,13 @@
         "rollup-plugin-copy": "latest",
         "rollup-plugin-typescript2": "latest",
         "rollup-plugin-web-worker-loader": "latest",
-        "ts-jest": "latest",
         "ts-node": "latest",
         "tslib": "latest",
         "typedoc": "latest",
         "typedoc-plugin-coverage": "latest",
-        "typescript": "latest"
+        "typescript": "latest",
+        "vite-tsconfig-paths": "latest",
+        "vitest": "latest"
     },
     "//": "TODO(liamcain/obsidian-calendar-ui#20): Stuck on a vulnerable version of svelte",
     "overrides": {

@@ -1,5 +1,5 @@
 import { DateTime, Interval } from "luxon";
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "vitest";
 import { PeriodicLog, PeriodicLogConfig } from "collections/periodic-log";
 
 describe("PeriodicLog", () => {

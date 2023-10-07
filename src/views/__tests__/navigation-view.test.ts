@@ -1,13 +1,13 @@
-import { afterAll, afterEach, describe, expect, it, jest } from "@jest/globals";
+import { MockedFunction, afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { PeriodicLog } from "collections/periodic-log";
 import { getAPI } from "obsidian-dataview";
 import { NavigationView } from "views/navigation-view";
 
-jest.mock("obsidian-dataview", () => ({ getAPI: jest.fn(() => ({ page: mockPage, pages: mockPages })) }));
+vi.mock("obsidian-dataview", () => ({ getAPI: vi.fn(() => ({ page: mockPage, pages: mockPages })) }));
 
-const mockGetAPI = getAPI as jest.MockedFunction<typeof getAPI>;
-const mockPage = jest.fn();
-const mockPages = jest.fn();
+const mockGetAPI = getAPI as MockedFunction<typeof getAPI>;
+const mockPage = vi.fn();
+const mockPages = vi.fn();
 
 afterEach(() => [mockPages, mockPage, mockGetAPI].forEach(mock => mock.mockClear()));
 afterAll(() => [mockPages, mockPage, mockGetAPI].forEach(mock => mock.mockRestore()));

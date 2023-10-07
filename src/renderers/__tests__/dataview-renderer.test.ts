@@ -1,15 +1,15 @@
 import type { Component } from "obsidian";
-import { afterAll, afterEach, describe, expect, it, jest } from "@jest/globals";
+import { MockedFunction, afterAll, afterEach, describe, expect, it, vi } from "vitest";
 import { DataviewRenderer } from "renderers/dataview-renderer";
 import { getAPI } from "obsidian-dataview";
 
-const mockGetAPI = getAPI as jest.MockedFunction<typeof getAPI>;
-const mockRenderValue = jest.fn();
+const mockGetAPI = getAPI as MockedFunction<typeof getAPI>;
+const mockRenderValue = vi.fn();
 
 afterEach(() => [mockRenderValue, mockGetAPI].forEach(mock => mock.mockClear()));
 afterAll(() => [mockRenderValue, mockGetAPI].forEach(mock => mock.mockRestore()));
 
-jest.mock("obsidian-dataview", () => ({ getAPI: jest.fn(() => ({ renderValue: mockRenderValue })) }));
+vi.mock("obsidian-dataview", () => ({ getAPI: vi.fn(() => ({ renderValue: mockRenderValue })) }));
 
 describe("DataviewRenderer", () => {
     describe(".render()", () => {

@@ -1,4 +1,4 @@
-import { describe, expect, it, jest } from "@jest/globals";
+import { describe, expect, it, vi } from "vitest";
 import { Resolver } from "utils/resolver";
 
 type TestRecord = Record<string, unknown>;
@@ -15,7 +15,7 @@ describe("Resolver", () => {
     });
 
     it("loads with provider", async () => {
-        const providerMock = jest.fn(async () => ({ a: "new" }));
+        const providerMock = vi.fn(async () => ({ a: "new" }));
         const resolver = new Resolver<TestRecord>(providerMock, async () => {}, { a: "old" });
 
         await resolver.load();
@@ -25,7 +25,7 @@ describe("Resolver", () => {
     });
 
     it("saves with consumer", async () => {
-        const consumerMock = jest.fn(async () => {});
+        const consumerMock = vi.fn(async () => {});
         const resolver = new Resolver<TestRecord>(async () => ({}), consumerMock, { a: 1 });
 
         await resolver.save();

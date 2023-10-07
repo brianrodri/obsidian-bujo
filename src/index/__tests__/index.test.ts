@@ -1,5 +1,5 @@
 import { ObsidianBujoIndex } from "index/index";
-import { describe, it, expect } from "@jest/globals";
+import { describe, it, expect } from "vitest";
 import { PeriodicLog, PeriodicLogConfig } from "collections/periodic-log";
 import assert from "assert";
 
