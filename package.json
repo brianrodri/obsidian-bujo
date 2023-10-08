@@ -25,7 +25,7 @@
     "dependencies": {
         "lodash": "latest",
         "luxon": "latest",
-        "obsidian-dataview": "0.5.56",
+        "obsidian-dataview": "latest",
         "react": "latest",
         "react-dom": "latest"
     },
@@ -46,7 +46,7 @@
         "@typescript-eslint/eslint-plugin": "latest",
         "@typescript-eslint/parser": "latest",
         "@ungap/structured-clone": "latest",
-        "@vitest/coverage-v8": "^0.34.6",
+        "@vitest/coverage-v8": "latest",
         "builtin-modules": "latest",
         "eslint": "latest",
         "eslint-config-prettier": "latest",
@@ -55,7 +55,7 @@
         "eslint-plugin-prettier": "latest",
         "eslint-plugin-tsdoc": "latest",
         "husky": "latest",
-        "jsdom": "^22.1.0",
+        "jsdom": "latest",
         "lint-staged": "latest",
         "obsidian": "latest",
         "prettier": "latest",
@@ -71,7 +71,7 @@
         "vite-tsconfig-paths": "latest",
         "vitest": "latest"
     },
-    "//": "TODO(liamcain/obsidian-calendar-ui#20): Stuck on a vulnerable version of svelte",
+    "//": "TODO(liamcain/obsidian-calendar-ui#20) is stuck on a vulnerable version of svelte",
     "overrides": {
         "svelte": "^3.59.2"
     }
