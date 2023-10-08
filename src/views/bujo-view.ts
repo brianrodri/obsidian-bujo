@@ -40,6 +40,6 @@ function View<ID extends keyof ViewRegistry>({ id, ...props }: { id?: string } &
         assertViewID(id);
         return VIEW_REGISTRY[id](props);
     } catch (error) {
-        return `> [!error] ${error.message}`;
+        return `> [!error] ${error}`;
     }
 }
