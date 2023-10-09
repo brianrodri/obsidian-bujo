@@ -6,7 +6,7 @@ import prettierPlugin from "eslint-plugin-prettier";
 import tsdocPlugin from "eslint-plugin-tsdoc";
 import globals from "globals";
 
-export const TYPESCRIPT_GLOB = "**/*.{ts,tsx}";
+export const TYPESCRIPT_FILES = ["src/**/*.ts"];
 
 /** @type { import("eslint").Linter.FlatConfig[] } */
 export default [
@@ -21,10 +21,10 @@ export default [
         languageOptions: { globals: globals.node },
     },
 
-    // Configure the TypeScript source code.
+    // Configure the source code.
     {
         plugins: { "@typescript-eslint": typescriptPlugin },
-        files: [TYPESCRIPT_GLOB],
+        files: TYPESCRIPT_FILES,
         languageOptions: {
             globals: globals.browser, // Source code is designed to run in a browser context.
             parser: typescriptPluginParser,
@@ -42,16 +42,16 @@ export default [
     // Configure plugin for validating TSDoc annotations on TypeScript files.
     {
         plugins: { tsdoc: tsdocPlugin },
-        files: [TYPESCRIPT_GLOB],
+        files: TYPESCRIPT_FILES,
         rules: { "tsdoc/syntax": "error" },
     },
 
     // Configure prettier to run on all files.
     {
         plugins: { prettier: prettierPlugin },
-        files: ["**/*"],
+        // NOTE: Omitting `files` is the same as selecting all files.
         rules: {
-            ...prettierConfig.rules, // Disables eslint rules that conflict with Prettier.
+            ...prettierConfig.rules, // Updates rules that conflict with Prettier.
             "prettier/prettier": "error",
         },
     },

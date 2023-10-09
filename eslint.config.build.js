@@ -1,5 +1,5 @@
 import importPlugin from "eslint-plugin-import";
-import { default as baseConfig, TYPESCRIPT_GLOB } from "./eslint.config.js";
+import { default as baseConfig, TYPESCRIPT_FILES } from "./eslint.config.js";
 
 export default [
     ...baseConfig,
@@ -7,7 +7,7 @@ export default [
     // These plugins are too expensive for IDEs, so only run them in "build mode".
     {
         plugins: { import: importPlugin },
-        files: [TYPESCRIPT_GLOB],
+        files: TYPESCRIPT_FILES,
         settings: {
             ...importPlugin.configs.typescript.settings,
             "import/resolver": { typescript: true },
