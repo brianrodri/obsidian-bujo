@@ -2,33 +2,24 @@
     "compilerOptions": {
         // Type Checking
         "downlevelIteration": true,
-        "noImplicitAny": true,
-        "noImplicitOverride": true,
-        "strictFunctionTypes": true,
-        "strictNullChecks": true,
-        "strictPropertyInitialization": true,
+        "strict": true,
 
         // Modules
         "baseUrl": "src",
         "module": "ESNext",
-        "moduleResolution": "node",
+        "moduleResolution": "Node",
 
         // Emit
-        "importHelpers": true,
+        "noEmit": true,
         "inlineSources": true,
-        "sourceMap": true,
-
-        // JavaScript Support
-        "allowJs": true,
+        "inlineSourceMap": true,
 
         // Interop Constraints
         "esModuleInterop": true,
         "isolatedModules": true,
 
         // Language and Environment
-        "jsx": "preserve",
-        "lib": ["DOM", "ES5", "scripthost", "es2015", "esnext"],
-        "skipLibCheck": true,
-        "target": "ES5"
+        "skipLibCheck": true, // Only concerned w/ type checking the package code.
+        "target": "ES2018" // Use same target as obsidian-dataview.
     }
 }
