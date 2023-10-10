@@ -1,4 +1,4 @@
-import { ICollection } from "collections/collection";
+import { ICollection } from "../collections/collection";
 
 /** The values needed for views to do their job. */
 export type ViewContext = {

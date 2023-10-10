@@ -1,6 +1,6 @@
 import type { Component } from "obsidian";
 import { MockedFunction, afterAll, afterEach, describe, expect, it, vi } from "vitest";
-import { DataviewRenderer } from "renderers/dataview-renderer";
+import { DataviewRenderer } from "../dataview-renderer";
 import { getAPI } from "obsidian-dataview";
 
 const mockGetAPI = getAPI as MockedFunction<typeof getAPI>;

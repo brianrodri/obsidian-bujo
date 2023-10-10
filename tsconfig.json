@@ -5,7 +5,6 @@
         "strict": true,
 
         // Modules
-        "baseUrl": "src",
         "module": "ESNext",
         "moduleResolution": "Node",
 

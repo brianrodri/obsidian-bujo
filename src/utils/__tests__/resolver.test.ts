@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { Resolver } from "utils/resolver";
+import { Resolver } from "../resolver";
 
 type TestRecord = Record<string, unknown>;
 

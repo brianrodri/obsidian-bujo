@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { PeriodicLog } from "collections/periodic-log";
-import { HeaderView } from "views/header-view";
-import { ViewContext } from "views/view-context";
+import { PeriodicLog } from "../../collections/periodic-log";
+import { HeaderView } from "../header-view";
+import { ViewContext } from "../view-context";
 
 describe("HeaderView", () => {
     const viewContext: ViewContext = {

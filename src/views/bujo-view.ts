@@ -1,9 +1,9 @@
 import { AssertionError } from "assert";
-import { ViewContext } from "views/view-context";
 import { ReactNode } from "react";
+import { ViewContext } from "./view-context";
 import { HeaderView, HeaderViewProps } from "./header-view";
 import { NavigationView, NavigationViewProps } from "./navigation-view";
-import { EnforceKeys } from "utils/type-utils";
+import { EnforceKeys } from "../utils/type-utils";
 
 export type ObsidianBujoViewProps = { source?: string };
 

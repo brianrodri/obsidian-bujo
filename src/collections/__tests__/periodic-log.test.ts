@@ -1,6 +1,6 @@
 import { DateTime, Interval } from "luxon";
 import { describe, expect, it } from "vitest";
-import { PeriodicLog, PeriodicLogConfig } from "collections/periodic-log";
+import { PeriodicLog, PeriodicLogConfig } from "../periodic-log";
 
 describe("PeriodicLog", () => {
     // This test uses dates in September 2023 because that's when I wrote the code. Here's a calendar:

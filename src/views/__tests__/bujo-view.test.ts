@@ -1,11 +1,11 @@
 import { MockedFunction, afterAll, afterEach, describe, expect, it, vi } from "vitest";
-import { ICollection } from "collections/collection";
-import { HeaderView } from "views/header-view";
-import { NavigationView } from "views/navigation-view";
-import { ObsidianBujoView } from "views/bujo-view";
+import { ICollection } from "../../collections/collection";
+import { HeaderView } from "../header-view";
+import { NavigationView } from "../navigation-view";
+import { ObsidianBujoView } from "../bujo-view";
 
-vi.mock("views/header-view", () => ({ HeaderView: vi.fn() }));
-vi.mock("views/navigation-view", () => ({ NavigationView: vi.fn() }));
+vi.mock("../header-view", () => ({ HeaderView: vi.fn() }));
+vi.mock("../navigation-view", () => ({ NavigationView: vi.fn() }));
 
 const mockHeaderView = HeaderView as MockedFunction<typeof HeaderView>;
 const mockNavigationView = NavigationView as MockedFunction<typeof NavigationView>;

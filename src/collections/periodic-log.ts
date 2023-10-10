@@ -1,5 +1,5 @@
 import { DateTime, Duration, Interval } from "luxon";
-import { ICollection } from "collections/collection";
+import { ICollection } from "./collection";
 import assert from "assert";
 
 export class PeriodicLog implements ICollection {

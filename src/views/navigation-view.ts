@@ -1,8 +1,8 @@
 import assert from "assert";
 import { sortBy, sortedIndexBy } from "lodash";
 import { SMarkdownPage, getAPI } from "obsidian-dataview";
-import { ViewContext } from "views/view-context";
 import { ReactNode } from "react";
+import { ViewContext } from "./view-context";
 
 /** Props accepted by the {@link NavigationView}. */
 export type NavigationViewProps = {

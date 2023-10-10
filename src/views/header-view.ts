@@ -1,4 +1,4 @@
-import { ViewContext } from "views/view-context";
+import { ViewContext } from "./view-context";
 
 /** Props accepted by the {@link HeaderView}. */
 export type HeaderViewProps = {

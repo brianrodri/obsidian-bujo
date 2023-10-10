@@ -1,7 +1,7 @@
-import { ICollection } from "collections/collection";
-import { PeriodicLog } from "collections/periodic-log";
-import { ObsidianBujoSettings } from "settings/settings";
-import { ViewContext } from "views/view-context";
+import { ICollection } from "../collections/collection";
+import { PeriodicLog } from "../collections/periodic-log";
+import { ObsidianBujoSettings } from "../settings/settings";
+import { ViewContext } from "../views/view-context";
 
 type CollectionWithFolder = ICollection & { folder: string };
 

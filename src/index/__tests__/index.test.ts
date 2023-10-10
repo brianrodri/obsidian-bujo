@@ -1,6 +1,6 @@
-import { ObsidianBujoIndex } from "index/index";
+import { ObsidianBujoIndex } from "../index";
 import { describe, it, expect } from "vitest";
-import { PeriodicLog, PeriodicLogConfig } from "collections/periodic-log";
+import { PeriodicLog, PeriodicLogConfig } from "../../collections/periodic-log";
 import assert from "assert";
 
 describe("ObsidianBujoIndex", () => {

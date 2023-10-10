@@ -1,7 +1,7 @@
 import { MockedFunction, afterAll, afterEach, describe, expect, it, vi } from "vitest";
-import { PeriodicLog } from "collections/periodic-log";
+import { PeriodicLog } from "../../collections/periodic-log";
 import { getAPI } from "obsidian-dataview";
-import { NavigationView } from "views/navigation-view";
+import { NavigationView } from "../navigation-view";
 
 vi.mock("obsidian-dataview", () => ({ getAPI: vi.fn(() => ({ page: mockPage, pages: mockPages })) }));
 

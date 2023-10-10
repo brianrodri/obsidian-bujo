@@ -2,7 +2,7 @@ import assert from "assert";
 import { Component } from "obsidian";
 import { DataviewApi, getAPI } from "obsidian-dataview";
 import { ReactNode } from "react";
-import { IRenderer } from "renderers/renderer";
+import { IRenderer } from "./renderer";
 
 export class DataviewRenderer implements IRenderer {
     private readonly api: DataviewApi;

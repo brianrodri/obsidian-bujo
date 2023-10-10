@@ -1,4 +1,4 @@
-import { PeriodicLogConfig } from "collections/periodic-log";
+import { PeriodicLogConfig } from "../collections/periodic-log";
 
 export type ObsidianBujoSettings = {
     keyword: string;
