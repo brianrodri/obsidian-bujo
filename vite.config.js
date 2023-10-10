@@ -15,7 +15,7 @@ export default defineConfig({
     test: {
         coverage: {
             statements: 100,
-            branches: 90, // TODO: Preact makes istanbul think that import statements are branches.
+            branches: 90, // TODO: Preact reduces coverage of import statements. Figure out why.
             functions: 100,
             lines: 100,
             include: ["src"],
