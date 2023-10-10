@@ -1,23 +1,20 @@
 import { AssertionError } from "assert";
-import { FunctionComponent } from "react";
 import { ViewContext } from "views/view-context";
+import { ReactNode } from "react";
 import { HeaderView, HeaderViewProps } from "./header-view";
 import { NavigationView, NavigationViewProps } from "./navigation-view";
 import { EnforceKeys } from "utils/type-utils";
 
 export type ObsidianBujoViewProps = { source?: string };
 
-export const ObsidianBujoView: FunctionComponent<ObsidianBujoViewProps & ViewContext> = ({ source, ...context }) => {
+export function ObsidianBujoView({ source, ...context }: ObsidianBujoViewProps & ViewContext): ReactNode {
     return (source ?? "")
         .split(/\s+/)
         .map(id => View({ id, ...context }))
         .join("\n\n");
-};
+}
 
-const VIEW_REGISTRY = {
-    header: HeaderView,
-    navigation: NavigationView,
-} as const satisfies Record<string, FunctionComponent<ViewContext>>;
+const VIEW_REGISTRY = { header: HeaderView, navigation: NavigationView } as const;
 
 type ViewRegistry = typeof VIEW_REGISTRY;
 

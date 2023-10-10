@@ -1,8 +1,8 @@
 import assert from "assert";
 import { sortBy, sortedIndexBy } from "lodash";
 import { SMarkdownPage, getAPI } from "obsidian-dataview";
-import { FunctionComponent } from "react";
 import { ViewContext } from "views/view-context";
+import { ReactNode } from "react";
 
 /** Props accepted by the {@link NavigationView}. */
 export type NavigationViewProps = {
@@ -24,7 +24,7 @@ export type NavigationViewProps = {
  * [[2023-09-26]] ← 2023-09-27 → [[2023-10-02]]
  * ```
  */
-export const NavigationView: FunctionComponent<NavigationViewProps & ViewContext> = ({ note, collection }) => {
+export function NavigationView({ note, collection }: NavigationViewProps & ViewContext): ReactNode {
     const api = getAPI();
     assert(api);
 
@@ -44,7 +44,7 @@ export const NavigationView: FunctionComponent<NavigationViewProps & ViewContext
     const prevLink = PrevLink({ page: sortedPages[prevOrFinalIndex], toFinal: sortedIndex < prevOrFinalIndex });
 
     return `${prevLink}${note}${nextLink}`;
-};
+}
 
 /** Renders a pretty link to the next/first note. */
 const NextLink = ({ page, toFirst }: { page: SMarkdownPage; toFirst: boolean }) => {

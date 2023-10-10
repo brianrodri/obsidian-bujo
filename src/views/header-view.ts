@@ -1,4 +1,3 @@
-import { FunctionComponent, ReactNode } from "react";
 import { ViewContext } from "views/view-context";
 
 /** Props accepted by the {@link HeaderView}. */
@@ -14,7 +13,7 @@ export type HeaderViewProps = {
  * # October 2, 2023
  * ```
  */
-export const HeaderView: FunctionComponent<HeaderViewProps & ViewContext> = ({ headerLevel = 2, note, collection }) => {
+export function HeaderView({ headerLevel = 2, note, collection }: HeaderViewProps & ViewContext) {
     headerLevel = Math.min(Math.max(headerLevel, 1), 6);
-    return `${"#".repeat(headerLevel)} ${collection.getNoteTitle(note)}` as ReactNode;
-};
+    return `${"#".repeat(headerLevel)} ${collection.getNoteTitle(note)}`;
+}
