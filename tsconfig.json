@@ -17,6 +17,7 @@
 
         // Language and Environment
         "jsx": "react-jsx",
+        "lib": ["DOM"],
         "jsxImportSource": "preact",
         "skipLibCheck": true, // Only concerned w/ type checking the package code.
         "target": "ES2016",

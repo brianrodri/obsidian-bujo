@@ -7,10 +7,11 @@ export default defineConfig({
     build: {
         emptyOutDir: false, // Otherwise helpful files like ".hotreload" will be wiped.
         lib: {
-            entry: normalizePath(resolve(__dirname, "src/main.ts")),
+            entry: normalizePath(resolve(__dirname, "src/main.tsx")),
             fileName: () => "main.js", // vite will append ".cjs" without this indirection.
             formats: ["cjs"],
         },
+        rollupOptions: { external: ["obsidian"] },
     },
     test: {
         coverage: {
