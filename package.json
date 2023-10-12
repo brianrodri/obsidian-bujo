@@ -30,7 +30,8 @@
         "obsidian-dataview": "latest",
         "preact": "latest",
         "react": "npm:@preact/compat",
-        "react-dom": "npm:@preact/compat"
+        "react-dom": "npm:@preact/compat",
+        "usehooks-ts": "latest"
     },
     "devDependencies": {
         "@eslint/eslintrc": "latest",
