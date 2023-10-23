@@ -1,9 +1,10 @@
 import { resolve } from "path";
 import { defineConfig, normalizePath } from "vite";
 import preact from "@preact/preset-vite";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
-    plugins: [preact()],
+    plugins: [nodePolyfills({ include: ["assert", "path"] }), preact()],
     build: {
         emptyOutDir: false, // Otherwise helpful files like ".hotreload" will be wiped.
         lib: {

@@ -62,6 +62,7 @@
         "typedoc-plugin-coverage": "latest",
         "typescript": "latest",
         "vite": "latest",
+        "vite-plugin-node-polyfills": "latest",
         "vitest": "latest"
     },
     "//": "TODO(liamcain/obsidian-calendar-ui#20) is stuck on a vulnerable version of svelte",
