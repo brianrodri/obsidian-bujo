@@ -24,6 +24,7 @@ export default defineConfig({
             lines: 100,
             include: ["src"],
             provider: "istanbul",
+            reporter: ["lcov"],
         },
         environment: "jsdom",
     },
