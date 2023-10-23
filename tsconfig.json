@@ -17,10 +17,10 @@
 
         // Language and Environment
         "jsx": "react-jsx",
-        "lib": ["DOM"],
         "jsxImportSource": "preact",
+        "lib": ["DOM", "ESNext"],
         "skipLibCheck": true, // Only concerned w/ type checking the package code.
-        "target": "ES2016",
+        "target": "ESNext",
         "paths": {
             "react": ["./node_modules/preact/compat/"],
             "react-dom": ["./node_modules/preact/compat/"]
