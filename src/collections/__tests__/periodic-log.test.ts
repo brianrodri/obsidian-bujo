@@ -18,7 +18,7 @@ describe("PeriodicLog", () => {
     // Valid and logically-consistent config for tests that don't care about some of the values.
     const etc: PeriodicLogConfig = {
         id: "id",
-        folder: "Logs",
+        dir: "Logs",
         period: "P1D",
         fileNameFormat: "yyyy-MM-dd",
         titleFormat: "yyyy-MM-dd",
@@ -30,7 +30,7 @@ describe("PeriodicLog", () => {
         });
 
         it.each([null, undefined, ""] as string[])("throws when folder is %j", (folder: string) => {
-            expect(() => new PeriodicLog({ ...etc, folder })).toThrowError("folder is required");
+            expect(() => new PeriodicLog({ ...etc, dir: folder })).toThrowError("folder is required");
         });
 
         it.each(["1 hour", { hour: 1 }, null, undefined] as string[])("throws when period is %j", (period: string) => {
@@ -46,25 +46,25 @@ describe("PeriodicLog", () => {
         });
     });
 
-    describe(".getIdentifier()", () => {
+    describe(".getID()", () => {
         it("returns configured id", () => {
             const log = new PeriodicLog({ ...etc, id: "death-note" });
 
-            expect(log.getUserDefinedIdentifier()).toEqual("death-note");
+            expect(log.getID()).toEqual("death-note");
         });
     });
 
-    describe(".resolveNote()", () => {
-        const log = new PeriodicLog({ ...etc, folder: "Logs/Months", fileNameFormat: "yyyy-MM" });
+    describe(".includes()", () => {
+        const log = new PeriodicLog({ ...etc, dir: "Logs/Months", fileNameFormat: "yyyy-MM" });
 
         it("resolves path when folder is right and format is right", () => {
-            expect(log.resolveNote("Logs/Months/2023-09.md")).toEqual("2023-09");
+            expect(log.includes("Logs/Months/2023-09.md")).toBe(true);
         });
 
         it("resolves path when correct folder is the root directory", () => {
-            const log = new PeriodicLog({ ...etc, folder: "/", fileNameFormat: "yyyy-MM" });
+            const log = new PeriodicLog({ ...etc, dir: "/", fileNameFormat: "yyyy-MM" });
 
-            expect(log.resolveNote("2023-09.md")).toEqual("2023-09");
+            expect(log.includes("2023-09.md")).toBe(true);
         });
 
         it.each([
@@ -73,7 +73,7 @@ describe("PeriodicLog", () => {
             ["Logs/Days", "yyyy-MM-dd"],
         ])('rejects invalid path: "%s/%s"', (folder: string, format: string) => {
             const fileName = DateTime.fromISO("2023-09-26").toFormat(format) + ".md";
-            expect(log.resolveNote(`${folder}/${fileName}`)).toBeUndefined();
+            expect(log.includes(`${folder}/${fileName}`)).toBe(false);
         });
     });
 
@@ -148,7 +148,7 @@ describe("PeriodicLog", () => {
 
     describe(".getVaultPath()", () => {
         it("returns path with configured folder", () => {
-            const log = new PeriodicLog({ ...etc, folder: "Vault/Directory/To" });
+            const log = new PeriodicLog({ ...etc, dir: "Vault/Directory/To" });
 
             expect(log.getVaultPath("My Note")).toEqual("Vault/Directory/To/My Note");
         });
@@ -156,7 +156,7 @@ describe("PeriodicLog", () => {
 
     describe(".getDataViewSource()", () => {
         it("returns the configured folder as the source", () => {
-            const log = new PeriodicLog({ ...etc, folder: "Folder" });
+            const log = new PeriodicLog({ ...etc, dir: "Folder" });
             expect(log.getDataViewSource()).toEqual(`"Folder"`);
         });
     });

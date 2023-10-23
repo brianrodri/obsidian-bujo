@@ -1,17 +1,17 @@
-import { PeriodicLogConfig } from "../collections/periodic-log";
+import { PeriodicLogConfig } from "./collections/periodic-log";
 
-export type ObsidianBujoSettings = {
-    keyword: string;
-    collections: { periodic: PeriodicLogConfig[] };
-};
+export interface ObsidianBujoSettings {
+    readonly collections: {
+        readonly periodic: readonly PeriodicLogConfig[];
+    };
+}
 
 export const DEFAULT_SETTINGS: ObsidianBujoSettings = {
-    keyword: "bujo",
     collections: {
         periodic: [
             {
                 id: "daily-logs",
-                folder: "Daily Logs",
+                dir: "Daily Logs",
                 period: "P1D",
                 fileNameFormat: "yyyy-MM-dd",
                 titleFormat: "cccc LLLL d, yyyy",
@@ -19,7 +19,7 @@ export const DEFAULT_SETTINGS: ObsidianBujoSettings = {
             },
             {
                 id: "weekly-logs",
-                folder: "Weekly Logs",
+                dir: "Weekly Logs",
                 period: "P1W",
                 fileNameFormat: "kkkk-'W'WW",
                 titleFormat: "'Week #'WW",
@@ -27,7 +27,7 @@ export const DEFAULT_SETTINGS: ObsidianBujoSettings = {
             },
             {
                 id: "monthly-logs",
-                folder: "Monthly Logs",
+                dir: "Monthly Logs",
                 period: "P1M",
                 fileNameFormat: "yyyy-MM",
                 titleFormat: "LLLL yyyy",
