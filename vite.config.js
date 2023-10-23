@@ -6,13 +6,15 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 export default defineConfig({
     plugins: [nodePolyfills({ include: ["assert", "path"] }), preact()],
     build: {
-        emptyOutDir: false, // Otherwise helpful files like ".hotreload" will be wiped.
+        emptyOutDir: false, // Otherwise helpful files like ".hotreload" will be deleted
         lib: {
-            entry: normalizePath(resolve(__dirname, "src/main.tsx")),
-            fileName: () => "main.js", // vite will append ".cjs" without this indirection.
-            formats: ["cjs"],
+            entry: normalizePath(resolve(__dirname, "src", "bujo-plugin.tsx")), // Platform-independence
+            fileName: () => "main.js", // vite will append ".cjs" without this indirection
+            formats: ["cjs"], // Obsidian expects a CommonJS script
         },
-        rollupOptions: { external: ["obsidian"] },
+        rollupOptions: {
+            external: ["obsidian"], // Obsidian's public API is type-only
+        },
     },
     test: {
         coverage: {
