@@ -56,7 +56,7 @@
         "typedoc": "latest",
         "typedoc-plugin-coverage": "latest",
         "typescript": "latest",
-        "vite": "latest",
+        "vite": "^5.0.7",
         "vite-tsconfig-paths": "latest",
         "vitest": "latest"
     },
