@@ -1,10 +1,11 @@
 import { optimizeLodashImports } from "@optimize-lodash/rollup-plugin";
+import preact from "@preact/preset-vite";
 import { resolve } from "path";
 import { defineConfig, normalizePath } from "vite";
 import { default as tsconfigPaths } from "vite-tsconfig-paths";
 
 export default defineConfig(({ mode }) => ({
-    plugins: [optimizeLodashImports(), tsconfigPaths()],
+    plugins: [optimizeLodashImports(), preact(), tsconfigPaths()],
     build: {
         copyPublicDir: true, // Copies manifest.json and version.json into the build directory.
         emptyOutDir: false, // Otherwise helpful files like ".hotreload" will be wiped.

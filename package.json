@@ -23,6 +23,7 @@
         "*": "eslint --config eslint.config.build.js --fix"
     },
     "dependencies": {
+        "@preact/preset-vite": "latest",
         "assert": "latest",
         "lodash": "latest",
         "luxon": "latest",
