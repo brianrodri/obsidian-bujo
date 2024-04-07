@@ -18,7 +18,11 @@ export default [
     // ESLint needs to know that the *.config.js files run in a NodeJS environment.
     {
         files: ["*.config.js"],
-        languageOptions: { globals: globals.node },
+        languageOptions: {
+            globals: {
+                ...globals.node,
+            },
+        },
     },
 
     // Configure the source code.
@@ -26,11 +30,17 @@ export default [
         plugins: { "@typescript-eslint": typescriptPlugin },
         files: TYPESCRIPT_FILES,
         languageOptions: {
-            globals: globals.browser, // Source code is designed to run in a browser context.
+            ecmaVersion: "latest",
+            sourceType: "module",
             parser: typescriptPluginParser,
             parserOptions: {
-                ecmaFeatures: { modules: true },
-                ecmaVersion: "latest",
+                ecmaFeatures: {
+                    jsx: true,
+                    modules: true,
+                },
+            },
+            globals: {
+                ...globals.browser,
             },
         },
         rules: {

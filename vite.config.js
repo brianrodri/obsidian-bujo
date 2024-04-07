@@ -1,34 +1,31 @@
-import { optimizeLodashImports } from "@optimize-lodash/rollup-plugin";
 import preact from "@preact/preset-vite";
 import { resolve } from "path";
 import { defineConfig, normalizePath } from "vite";
-import { default as tsconfigPaths } from "vite-tsconfig-paths";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
-export default defineConfig(({ mode }) => ({
-    plugins: [optimizeLodashImports(), preact(), tsconfigPaths()],
+export default defineConfig({
+    plugins: [nodePolyfills({ include: ["assert", "path"] }), preact()],
     build: {
-        copyPublicDir: true, // Copies manifest.json and version.json into the build directory.
-        emptyOutDir: false, // Otherwise helpful files like ".hotreload" will be wiped.
+        emptyOutDir: false, // Otherwise helpful files like ".hotreload" will be deleted
         lib: {
-            entry: normalizePath(resolve(__dirname, "src/main.ts")),
-            fileName: () => "main.js", // vite will append ".cjs" without this indirection.
-            formats: ["cjs"],
+            entry: normalizePath(resolve(__dirname, "src", "bujo-plugin.tsx")), // Platform-independence
+            fileName: () => "main.js", // vite will append ".cjs" without this indirection
+            formats: ["cjs"], // Obsidian expects a CommonJS script
         },
         rollupOptions: {
-            treeshake: true,
-            external: ["obsidian"],
+            external: ["obsidian"], // Obsidian's public API is type-only
         },
-        sourcemap: mode === "development" ? "inline" : false,
     },
     test: {
         coverage: {
-            100: true,
-            all: true,
+            statements: 100,
+            branches: 90, // TODO: Preact reduces coverage of import statements. Figure out why.
+            functions: 100,
+            lines: 100,
             include: ["src"],
-            exclude: ["src/main.ts"], // TODO: Figure out how to compile "obsidian" so I can test this file.
-            provider: "istanbul", // v8 treats type definitions as untested code.
+            provider: "istanbul",
+            reporter: ["lcov"],
         },
         environment: "jsdom",
-        watch: false, // must be enabled via CLI flags.
     },
-}));
+});

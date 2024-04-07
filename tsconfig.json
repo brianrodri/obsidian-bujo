@@ -5,21 +5,25 @@
         "strict": true,
 
         // Modules
-        "baseUrl": "src",
         "module": "ESNext",
         "moduleResolution": "Node",
 
         // Emit
         "noEmit": true,
-        "inlineSources": true,
         "inlineSourceMap": true,
 
         // Interop Constraints
         "esModuleInterop": true,
-        "isolatedModules": true,
 
         // Language and Environment
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
+        "lib": ["DOM", "ESNext"],
         "skipLibCheck": true, // Only concerned w/ type checking the package code.
-        "target": "ES2018" // Use same target as obsidian-dataview.
+        "target": "ESNext",
+        "paths": {
+            "react": ["./node_modules/preact/compat/"],
+            "react-dom": ["./node_modules/preact/compat/"]
+        }
     }
 }
