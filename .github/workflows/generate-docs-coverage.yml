@@ -2,8 +2,10 @@ name: Generate Docs and Calculate Coverage
 
 on:
     push:
-        branches:
-            - main
+        branches: [main]
+    # TODO(#3): Delete this once the PR is merged
+    pull_request:
+        branches: [main, fix-docs]
 
 jobs:
     build:
