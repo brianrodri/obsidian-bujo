@@ -17,11 +17,14 @@ jobs:
               run: npm clean-install
 
             - name: Generate Documentation
-              run: npm run typedoc
+              run: |
+                  npm run typedoc
+                  echo 'LOGO_SVG="$(cat build/coverage.svg)"' >> $GITHUB_ENV
 
             - name: Generate Badge
               uses: schneegans/dynamic-badges-action@v1.7.0
               with:
                   auth: ${{ secrets.GIST_SECRET }}
+                  logoSvg: ${{ env.LOGO_SVG }}
                   gistID: ${{ vars.GIST_ID }}
-                  filename: docs/coverage.svg
+                  filename: coverage.svg
