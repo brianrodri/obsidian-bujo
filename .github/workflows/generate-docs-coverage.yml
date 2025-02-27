@@ -21,7 +21,12 @@ jobs:
             - name: Generate Documentation
               run: |
                   npm run typedoc
-                  echo "LOGO_SVG='$(cat -s docs/coverage.svg)'" >> $GITHUB_ENV
+                  {
+                    echo "LOGO_SVG<<EOF"
+                    # Append newline if missing. See: https://stackoverflow.com/a/74282465/4859885.
+                    sed -e '$a\' docs/coverage.svg
+                    echo "EOF"
+                  } >> "$GITHUB_ENV"
 
             - name: Generate Badge
               uses: schneegans/dynamic-badges-action@v1.7.0
