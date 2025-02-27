@@ -21,7 +21,11 @@ jobs:
             - name: Generate Documentation
               run: |
                   npm run typedoc
-                  echo "LOGO_SVG<<EOF\n$(cat docs/coverage.svg)\nEOF" >> "$GITHUB_ENV"
+                  {
+                    printf "LOGO_SVG<<EOF\n"
+                    cat docs/coverage.svg
+                    printf "\nEOF"
+                  } >> "$GITHUB_ENV"
 
             - name: Upload Badge
               uses: exuanbo/actions-deploy-gist@v1
