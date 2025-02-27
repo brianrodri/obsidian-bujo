@@ -23,7 +23,7 @@ jobs:
                   npm run typedoc
                   ls docs/
                   cat docs/coverage.svg
-                  echo 'LOGO_SVG="$(cat docs/coverage.svg | base64)"' >> $GITHUB_ENV
+                  echo "LOGO_SVG='$(cat docs/coverage.svg | base64)'" >> $GITHUB_ENV
 
             - name: Generate Badge
               uses: schneegans/dynamic-badges-action@v1.7.0
