@@ -20,7 +20,7 @@ jobs:
               run: npm run typedoc
 
             - name: Generate Badge
-              uses: schneegans/dynamic-badges-action@v1
+              uses: schneegans/dynamic-badges-action@v1.7.0
               with:
                   auth: ${{ secrets.GIST_SECRET }}
                   gistID: ${{ secrets.GIST_ID }}
