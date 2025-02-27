@@ -21,9 +21,9 @@ jobs:
             - name: Generate Documentation
               run: |
                   npm run typedoc
-                  ls build/
-                  cat build/coverage.svg
-                  echo "LOGO_SVG=\"$(cat build/coverage.svg)\"" >> $GITHUB_ENV
+                  ls docs/
+                  cat docs/coverage.svg
+                  echo "LOGO_SVG=\"$(cat docs/coverage.svg)\"" >> $GITHUB_ENV
 
             - name: Generate Badge
               uses: schneegans/dynamic-badges-action@v1.7.0
