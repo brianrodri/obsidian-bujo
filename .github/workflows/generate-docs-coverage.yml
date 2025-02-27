@@ -24,7 +24,8 @@ jobs:
                   # See: https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#example-of-a-multiline-string
                   {
                     echo 'LOGO_SVG<<EOF'
-                    cat docs/coverage.svg
+                    # See: https://stackoverflow.com/a/74282465/4859885
+                    sed -e '$a\' docs/coverage.svg
                     echo EOF
                   } >> "$GITHUB_ENV"
 
