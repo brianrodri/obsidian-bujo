@@ -22,7 +22,6 @@ jobs:
             - name: Generate Badge
               uses: schneegans/dynamic-badges-action@v1.7.0
               with:
-                  logoSvg: $(cat docs/coverage.svg)
                   auth: ${{ secrets.GIST_SECRET }}
                   gistID: ${{ vars.GIST_ID }}
-                  filename: coverage.svg
+                  filename: docs/coverage.svg
