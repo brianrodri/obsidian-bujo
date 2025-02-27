@@ -28,10 +28,9 @@ jobs:
                     echo EOF
                   } >> "$GITHUB_ENV"
 
-            - name: Generate Badge
-              uses: schneegans/dynamic-badges-action@v1.7.0
+            - name: Upload Badge
+              uses: exuanbo/actions-deploy-gist@v1
               with:
-                  auth: ${{ secrets.GIST_SECRET }}
-                  logoSvg: ${{ env.LOGO_SVG }}
-                  gistID: ${{ vars.GIST_ID }}
-                  filename: coverage.svg
+                  token: ${{ secrets.GIST_SECRET }}
+                  gist_id: ${{ vars.GIST_ID }}
+                  file_path: docs/coverage.svg
