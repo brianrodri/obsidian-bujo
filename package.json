@@ -12,8 +12,8 @@
     "type": "module",
     "scripts": {
         "prepare": "husky",
-        "test": "tsc && vitest --coverage",
-        "watch": "tsc && vitest watch --coverage",
+        "test": "tsc && vitest --coverage --run",
+        "watch": "tsc && vitest --coverage --watch",
         "build": "tsc && vite build",
         "hotreload": "git submodule init && git submodule update && vite build --mode development --outDir ./test-vault/.obsidian/plugins/obsidian-bujo/ --watch",
         "lint": "eslint --config eslint.config.build.js --fix .",
