@@ -3,9 +3,6 @@ name: Generate Docs and Calculate Coverage
 on:
     push:
         branches: [main]
-    # TODO(#3): Delete this once the PR is merged
-    pull_request:
-        branches: [main, fix-docs]
 
 jobs:
     build:
@@ -21,12 +18,7 @@ jobs:
             - name: Generate Documentation
               run: |
                   npm run typedoc
-                  # See: https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#example-of-a-multiline-string
-                  {
-                    echo 'LOGO_SVG<<EOF'
-                    cat docs/coverage.svg; echo
-                    echo EOF
-                  } >> "$GITHUB_ENV"
+                  echo "LOGO_SVG<<EOF\n$(cat docs/coverage.svg)\nEOF" >> "$GITHUB_ENV"
 
             - name: Upload Badge
               uses: exuanbo/actions-deploy-gist@v1
