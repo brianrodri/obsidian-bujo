@@ -19,13 +19,9 @@ jobs:
             - name: Generate Documentation
               run: npm run typedoc
 
-            - name: Upload Badge
-              uses: actions/upload-artifact@v4
+            - name: Generate Badge
+              uses: schneegans/dynamic-badges-action@v1
               with:
-                  name: docs-coverage-badge
-                  path: docs/coverage.svg
-
-            - name: Download Badge
-              uses: actions/download-artifact@v4
-              with:
-                  name: docs-coverage-badge
+                  auth: ${{ secrets.GIST_SECRET }}
+                  gistID: ${{ secrets.GIST_ID }}
+                  filename: docs/test.svg
