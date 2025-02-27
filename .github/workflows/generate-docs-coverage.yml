@@ -23,7 +23,7 @@ jobs:
                   npm run typedoc
                   {
                     echo 'LOGO_SVG<<EOF'
-                    cat docs/coverage.svg | base64
+                    cat docs/coverage.svg
                     echo EOF
                   } >> "$GITHUB_ENV"
 
