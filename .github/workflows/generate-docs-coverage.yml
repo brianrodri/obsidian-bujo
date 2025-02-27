@@ -3,9 +3,6 @@ name: Generate Docs and Calculate Coverage
 on:
     push:
         branches: [main]
-    # TODO(#3): Delete this once the PR is merged
-    pull_request:
-        branches: [main, fix-docs]
 
 jobs:
     build:
@@ -19,15 +16,17 @@ jobs:
               run: npm clean-install
 
             - name: Generate Documentation
-              run: npm run typedoc
+              run: |
+                  npm run typedoc
+                  {
+                    printf "LOGO_SVG<<EOF\n"
+                    cat docs/coverage.svg
+                    printf "\nEOF"
+                  } >> $GITHUB_ENV
 
             - name: Upload Badge
-              uses: actions/upload-artifact@v4
+              uses: exuanbo/actions-deploy-gist@v1
               with:
-                  name: docs-coverage-badge
-                  path: docs/coverage.svg
-
-            - name: Download Badge
-              uses: actions/download-artifact@v4
-              with:
-                  name: docs-coverage-badge
+                  token: ${{ secrets.GIST_SECRET }}
+                  gist_id: ${{ vars.GIST_ID }}
+                  file_path: docs/coverage.svg
