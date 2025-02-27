@@ -3,9 +3,6 @@ name: Generate Docs and Calculate Coverage
 on:
     push:
         branches: [main]
-    # TODO(#3): Delete this once the PR is merged
-    pull_request:
-        branches: [main, fix-docs]
 
 jobs:
     build:
@@ -25,7 +22,7 @@ jobs:
                     printf "LOGO_SVG<<EOF\n"
                     cat docs/coverage.svg
                     printf "\nEOF"
-                  } >> "$GITHUB_ENV"
+                  } >> $GITHUB_ENV
 
             - name: Upload Badge
               uses: exuanbo/actions-deploy-gist@v1
