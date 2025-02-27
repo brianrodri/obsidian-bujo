@@ -21,6 +21,8 @@ jobs:
             - name: Generate Documentation
               run: |
                   npm run typedoc
+                  ls build/
+                  cat build/coverage.svg
                   echo "LOGO_SVG=\"$(cat build/coverage.svg)\"" >> $GITHUB_ENV
 
             - name: Generate Badge
