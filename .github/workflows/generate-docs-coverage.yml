@@ -24,4 +24,4 @@ jobs:
               with:
                   auth: ${{ secrets.GIST_SECRET }}
                   gistID: ${{ secrets.GIST_ID }}
-                  filename: docs/test.svg
+                  filename: coverage.svg
