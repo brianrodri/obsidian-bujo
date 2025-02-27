@@ -78,8 +78,7 @@ export class PeriodicLog implements ICollection {
     getNoteInterval(note: string): Interval {
         const fileDate = DateTime.fromFormat(note, this.fileNameFormat);
         const start = fileDate.plus(this.offset);
-        const end = start.plus(this.period);
-        return start.until(end);
+        return Interval.after(start, this.period);
     }
 
     /** {@inheritdoc} */

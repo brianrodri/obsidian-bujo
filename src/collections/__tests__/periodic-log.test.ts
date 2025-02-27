@@ -33,12 +33,16 @@ describe("PeriodicLog", () => {
             expect(() => new PeriodicLog({ ...etc, dir: folder })).toThrowError("folder is required");
         });
 
-        it.each(["1 hour", { hour: 1 }, null, undefined] as string[])("throws when period is %j", (period: string) => {
-            expect(() => new PeriodicLog({ ...etc, period })).toThrowError("period must be valid");
+        it.each([null, undefined, ""] as string[])("throws when period is %j", (period: string) => {
+            expect(() => new PeriodicLog({ ...etc, period })).toThrowError("period is required");
+        });
+
+        it.each(["1 hour", { hour: 1 }] as string[])("throws when period is %j", (period: string) => {
+            expect(() => new PeriodicLog({ ...etc, period })).toThrowError("unparsable");
         });
 
         it.each(["1 hour", { hour: 1 }] as string[])("throws when offset is %j", (offset: string) => {
-            expect(() => new PeriodicLog({ ...etc, offset })).toThrowError("offset must be valid");
+            expect(() => new PeriodicLog({ ...etc, offset })).toThrowError("unparsable");
         });
 
         it.each([null, undefined, ""] as string[])("throws when fileNameFormat is %j", (fileNameFormat: string) => {

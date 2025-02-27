@@ -17,6 +17,10 @@ export default defineConfig({
         },
     },
     test: {
+        alias: {
+            // NOTE(vitest-dev/vitest#4029): Required because obsidian is a type-only library with non-type exports.
+            obsidian: "src/__mocks__/obsidian.ts",
+        },
         coverage: {
             statements: 100,
             branches: 90, // TODO: Preact reduces coverage of import statements. Figure out why.

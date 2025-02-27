@@ -2,7 +2,7 @@ import { MarkdownRenderer } from "obsidian";
 import { JSX, createElement } from "preact";
 import { FC } from "preact/compat";
 import { useEffect, useState } from "preact/hooks";
-import { useDebounce } from "usehooks-ts";
+import { useDebounceValue } from "usehooks-ts";
 import { useObsidianBujoContext } from "../bujo-context";
 
 /** Renders the {@link markdown} string with Obsidian's API. */
@@ -13,7 +13,7 @@ export const ObsidianMarkdown: FC<ObsidianMarkdownProps> = ({ content, tag = "sp
     // Obsidian's API for rendering markdown is asynchronous.
     // As a consequence, there's a risk for "older" renders to resolve *after* "newer" renders.
     // The markdown string is debounced here to avoid this scenario entirely. For now, we'll use the default 500ms.
-    const markdown = useDebounce(content);
+    const [markdown] = useDebounceValue(content, 500);
 
     useEffect(() => {
         const resolveHTML = async () => {
